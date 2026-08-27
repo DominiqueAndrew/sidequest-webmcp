@@ -20,12 +20,13 @@ export function createStore(initial = createInitialState()) {
     subscribe: (listener) => { listeners.add(listener); return () => listeners.delete(listener); },
     setBrief: (brief, source = 'human') => { state = { ...state, brief: { ...brief }, plan: null, swapForStopId: null, error: null, activities: addActivity(source, 'Brief updated', `${brief.durationMinutes} minutes · ${brief.energy} energy · ${brief.stepFree ? 'step-free' : 'stairs okay'}.`) }; notify(); },
     beginBuild: (source = 'human') => { state = { ...state, status: 'building', error: null, activities: addActivity(source, 'Finding the right rhythm', 'Checking time, energy, cost, and access together.') }; notify(); },
-    applyPlan: (plan, source = 'human') => { state = { ...state, plan, status: 'idle', error: null, swapForStopId: null, activities: addActivity(source, 'Draft ready', `${plan.stops.length} stops fit your ${plan.totalMinutes}-minute window.`) }; notify(); },
+    applyPlan: (plan, source = 'human', label = 'Draft ready', detail = `${plan.stops.length} stops fit your ${plan.totalMinutes}-minute window.`) => { state = { ...state, plan, status: 'idle', error: null, swapForStopId: null, activities: addActivity(source, label, detail) }; notify(); },
     setError: (message) => { state = { ...state, status: 'error', error: message, activities: addActivity('system', 'Could not finish that', message) }; notify(); },
     toggleSwap: (stopId) => { state = { ...state, swapForStopId: state.swapForStopId === stopId ? null : stopId }; notify(); },
+    recordActivity: (source, label, detail) => { state = { ...state, activities: addActivity(source, label, detail) }; notify(); },
     replaceStop: (stopId, replacementId, source = 'human') => { if (!state.plan) return null; const next = swapStop(state.plan, stopId, replacementId); if (!next) return null; state = { ...state, plan: next, swapForStopId: null, activities: addActivity(source, 'One stop tuned', 'The rest of the route stayed intact.') }; notify(); return next; },
     savePlan: (name, source = 'human') => { if (!state.plan) return null; const saved = { ...state.plan, title: name.trim() || state.plan.title, status: 'saved' }; state = { ...state, plan: saved, savedPlans: [saved, ...state.savedPlans.filter((plan) => plan.id !== saved.id)], activities: addActivity(source, 'Plan saved', 'Your Saturday is ready when you are.') }; notify(); return saved; },
     setWebmcp: (webmcp) => { state = { ...state, webmcp }; notify(); },
-    reset: () => { const webmcp = state.webmcp; state = { ...createInitialState(), webmcp }; notify(); },
+    reset: () => { const webmcp = state.webmcp; state = { ...createInitialState(), plan: null, webmcp, activities: [activity('human', 'Fresh start', 'Tell me the shape of your free time and we’ll begin there.')] }; notify(); },
   };
 }

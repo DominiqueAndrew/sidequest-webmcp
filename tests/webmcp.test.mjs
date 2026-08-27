@@ -18,6 +18,7 @@ test('exposes the complete stateful WebMCP tool surface', async () => {
   const search = tools.find((tool) => tool.name === 'sidequest.search_stops');
   const searchResult = JSON.parse(await search.execute({ energy: 'gentle', budget: 0, stepFree: true }));
   assert.deepEqual(searchResult.results.map((stop) => stop.id), ['canal-light-loop', 'maple-reading-room']);
+  assert.equal(store.getState().activities[0].label, 'Searched the collection');
 });
 
 test('agent drafting mutates the shared page state and saving is consent-gated', async () => {
@@ -35,4 +36,12 @@ test('agent drafting mutates the shared page state and saving is consent-gated',
   const saved = JSON.parse(await save.execute({ name: 'A good little Saturday', confirm: true }));
   assert.equal(saved.ok, true);
   assert.equal(store.getState().savedPlans.length, 1);
+});
+
+test('reset exposes a real blank state for the human workflow', () => {
+  const store = createStore();
+  assert.ok(store.getState().plan);
+  store.reset();
+  assert.equal(store.getState().plan, null);
+  assert.equal(store.getState().activities[0].label, 'Fresh start');
 });

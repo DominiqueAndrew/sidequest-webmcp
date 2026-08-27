@@ -51,7 +51,13 @@ export function chooseStops(brief, excludedIds = []) {
   const valid = combinations(candidates, 3).filter((combo) => combo.reduce((sum, stop) => sum + stop.durationMinutes, 0) <= brief.durationMinutes && combo.reduce((sum, stop) => sum + stop.price, 0) <= brief.budget && new Set(combo.map((stop) => stop.category)).size === 3);
   const ranked = valid.sort((a, b) => scoreCombination(b, brief) - scoreCombination(a, brief));
   if (ranked[0]) return CATEGORY_ORDER.map((category) => ranked[0].find((stop) => stop.category === category)).filter(Boolean);
-  return candidates.slice(0, 3);
+  const fallback = [];
+  for (const candidate of candidates) {
+    const totalMinutes = fallback.reduce((sum, stop) => sum + stop.durationMinutes, 0) + candidate.durationMinutes;
+    const totalCost = fallback.reduce((sum, stop) => sum + stop.price, 0) + candidate.price;
+    if (totalMinutes <= brief.durationMinutes && totalCost <= brief.budget) fallback.push(candidate);
+  }
+  return fallback;
 }
 
 /** @param {Brief} brief @param {string} [id] @returns {Plan} */
@@ -68,13 +74,14 @@ export function createPlan(brief, id = `plan-${Date.now()}`) {
 
 /** @param {Plan} plan @param {string} stopId @param {string} [replacementId] @returns {Plan|null} */
 export function swapStop(plan, stopId, replacementId) {
-  if (!getStop(stopId)) return null;
+  if (!getStop(stopId) || !plan.stops.some((planned) => planned.stopId === stopId)) return null;
   const excluded = plan.stops.map(({ stopId: id }) => id).filter((id) => id !== stopId);
   const replacement = replacementId ? getStop(replacementId) : chooseStops(plan.brief, excluded).find((stop) => stop.id !== stopId);
   if (!replacement || excluded.includes(replacement.id) || !canFit(replacement, plan.brief)) return null;
   const next = plan.stops.map((planned) => planned.stopId === stopId ? { ...planned, stopId: replacement.id } : planned);
   const chosen = next.map(({ stopId: id }) => getStop(id)).filter(Boolean);
-  if (chosen.reduce((sum, stop) => sum + stop.durationMinutes, 0) > plan.brief.durationMinutes) return null;
+  if (chosen.reduce((sum, stop) => sum + stop.durationMinutes, 0) > plan.brief.durationMinutes || chosen.reduce((sum, stop) => sum + stop.price, 0) > plan.brief.budget) return null;
+  if (new Set(chosen.map((stop) => stop.category)).size < new Set(plan.stops.map(({ stopId: id }) => getStop(id)?.category)).size) return null;
   let cursor = 0;
   const resequenced = next.map((planned) => { const stop = getStop(planned.stopId); const startMinute = cursor; cursor += stop?.durationMinutes ?? 0; return { ...planned, startMinute, endMinute: cursor }; });
   return { ...plan, stops: resequenced, totalMinutes: cursor, totalCost: chosen.reduce((sum, stop) => sum + stop.price, 0), status: 'draft' };

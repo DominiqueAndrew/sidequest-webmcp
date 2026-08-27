@@ -32,11 +32,13 @@ Without structured tools, an agent would have to infer the meaning of a multi-fi
 
 The project is also fully usable in a browser without WebMCP, where it clearly reports “WebMCP preview.”
 
+The evidence boundary, research sources, decision model, safety controls, rubric map, and unreconciled browser-validation limitation are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
+
 ## Repository and license
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
-- Deployed commit: `083c2621f88ed722f9fd28bfabf241fb0697bedd`
+- Deployed commit: update after the next production deployment.
 
 ## Demo video
 

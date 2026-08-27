@@ -39,6 +39,7 @@ To inspect tools locally, use Chrome 149+ with `chrome://flags/#enable-webmcp-te
 - `src/webmcp.js` — current WebMCP registration and tool schemas.
 - `src/main.js` and `src/styles.css` — human-first UI and responsive states.
 - `docs/spec.md` — product acceptance criteria and validation plan.
+- `SCIENCE_APPENDIX.md` — source links, decision model, safety evidence, rubric map, and reproducibility limits.
 
 ## License
 
