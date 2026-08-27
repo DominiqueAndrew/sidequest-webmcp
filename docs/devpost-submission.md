@@ -18,9 +18,17 @@ WebMCP is what makes the agent handoff materially better. The page exposes its r
 
 Saving is deliberately human-controlled. `save_plan` returns a confirmation request unless the agent calls it with `confirm: true` after the person has explicitly agreed. The app has no account, payment, location tracking, booking, or external API dependency. Its collection is synthetic demo data and is labelled as such.
 
+The judge-facing moment is a shared state machine, not a chat surface: inspect the live brief, search the constrained collection, draft a route, tune exactly one stop, ask before saving, then let the person decide. Each step produces a structured result and a visible activity entry. This is the smallest workflow that shows why WebMCP matters: the agent coordinates the fiddly state transitions, while the human keeps the intent and the final write.
+
 ## What was difficult or impossible before
 
 Without structured tools, an agent would have to infer the meaning of a multi-field brief from a visual form, search a rendered list, and coordinate several edits while hoping it preserved time, budget, energy, and access requirements. With WebMCP, it can operate on the same typed state transitions as the human UI and return compact, structured results after each step.
+
+## Evidence snapshot
+
+The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied the first save with zero saved plans, accepted the explicit confirmation, and reset to a blank state. `npm run check` passes 11 tests and the static build gate for 12 required files, five WebMCP tools, and accessibility/security guards.
+
+These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Browser validation, screenshots, and the public video remain explicit release gates; the research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
 ## How to test
 
@@ -38,7 +46,9 @@ The evidence boundary, research sources, decision model, safety controls, rubric
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
-- Deployed commit: `733a4717ad07e94ad8ae6d6ca0ff657694936265`
+- Application/runtime revision: `733a4717ad07e94ad8ae6d6ca0ff657694936265`
+- Smoke-harness/repository revision: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd`
+- Stable deployment alias: https://sidequest-webmcp.vercel.app
 
 ## Demo video
 
