@@ -28,7 +28,7 @@ Without structured tools, an agent would have to infer the meaning of a multi-fi
 
 The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied the first save with zero saved plans, accepted the explicit confirmation, and reset to a blank state. `npm run check` passes 13 tests and the static build gate for 13 required files, five WebMCP tools, and accessibility/security guards.
 
-These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Native WebMCP acceptance, the complete responsive screenshot matrix, and the public video remain explicit release gates; a cache-busted Chrome visual smoke now confirms the deployed UI renders and the local handoff interaction updates state. The research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
+These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Native WebMCP acceptance and the public video remain explicit release gates; a cache-busted Chrome visual smoke confirms the deployed UI renders, the local handoff interaction updates state, and the six-width responsive matrix has been captured and inspected without horizontal overflow. The research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
 ## How to test
 
@@ -38,7 +38,7 @@ These are deterministic local/runtime results, not a user study or live-agent br
 4. Ask: “Swap the first stop for the other compatible coffee option, then show me the revised plan.”
 5. Ask: “Save this as A good little Saturday.” The agent should ask for confirmation because saving is a state-changing action. Confirm only if you want to test the final save.
 
-The project is designed to remain usable in a browser without WebMCP, where it reports “WebMCP preview.” This fallback is covered by the source path and static checks; Chrome visual smoke is verified, while native tool discovery and the complete responsive matrix remain open gates.
+The project is designed to remain usable in a browser without WebMCP, where it reports “WebMCP preview.” This fallback is covered by the source path and static checks; Chrome visual smoke and the six-width responsive matrix are verified, while native tool discovery remains an open gate.
 
 The evidence boundary, research sources, decision model, safety controls, rubric map, and the remaining native-WebMCP browser limitation are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 

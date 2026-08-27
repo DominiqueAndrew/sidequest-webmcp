@@ -25,7 +25,7 @@ Sources:
 
 | Material claim | Classification | Evidence and current status |
 | --- | --- | --- |
-| WebMCP gives an agent structured discovery, schemas, executable state transitions, and current state instead of DOM guessing. | Engineering claim | Supported by the WebMCP draft and Chrome overview; implemented in `src/webmcp.js` with five tools and shared `src/store.js` state. Chrome visual smoke and page-local handoff interaction pass; native live tool inspection remains pending. |
+| WebMCP gives an agent structured discovery, schemas, executable state transitions, and current state instead of DOM guessing. | Engineering claim | Supported by the WebMCP draft and Chrome overview; implemented in `src/webmcp.js` with five tools and shared `src/store.js` state. Chrome visual smoke, six-width responsive inspection, and page-local handoff interaction pass; native live tool inspection remains pending. |
 | A small, varied route is a defensible wedge for a short free-time decision. | Research-backed hypothesis | Choice research supports testing constrained sets in context, not a universal “fewer is always better” rule. Sidequest currently offers three moments and a small curated collection; no user study has been run. |
 | A generated route respects hard time, budget, energy, access, and variety constraints when a full three-stop combination exists. | Calculated/property-tested claim | `canFit`, combination selection, aggregate fallback, and swap guards in `src/logic.js`; covered by the automated tests listed below. Synthetic stops have no real-world availability guarantee. |
 | An agent can prepare and tune a plan while a person controls saving. | Engineering/safety claim | Read-only annotations mark search/inspect; `save_plan` requires `confirm === true`, and the UI exposes the same state. Covered by `tests/webmcp.test.mjs`; no external action exists. |
@@ -104,7 +104,22 @@ A separate Chrome extension attempt on 2026-08-27 reached the stable URL and cor
 
 The first blank page had two sequential module-graph causes. The static entrypoint imported `./styles.css` from `src/main.js`, which is invalid when the project is served as unbundled browser modules; the browser must receive CSS through an HTML stylesheet link. After that was corrected, Chrome exposed a second error: `main.js` imported `searchStops` from `data.js`, although `searchStops` is exported by `logic.js`. The final fix links `/src/styles.css` in `index.html`, removes the CSS import, wires the named exports to their owning modules, and adds static build guards for both invariants. A cache-busted runtime URL (`/src/main.js?v=7e616fc`) ensures the browser does not reuse the pre-fix module URL.
 
-After deployment `dpl_G5acXESgUg4W2uw7U8ZvnN5GKiSr`, Chrome loaded the cache-busted entrypoint with the stylesheet, produced a non-empty `#app` (`10,712` HTML characters), rendered the route and handoff panels, and had no new page error during the repaired load. Clicking “Preview an agent handoff” updated the visible activity rail with inspect/search/draft events. This verifies the visual/runtime path; it does not verify native WebMCP discovery or the full responsive screenshot matrix.
+After deployment `dpl_G5acXESgUg4W2uw7U8ZvnN5GKiSr`, Chrome loaded the cache-busted entrypoint with the stylesheet, produced a non-empty `#app` (`10,712` HTML characters), rendered the route and handoff panels, and had no new page error during the repaired load. Clicking “Preview an agent handoff” updated the visible activity rail with inspect/search/draft events. This verifies the visual/runtime path; it does not verify native WebMCP discovery.
+
+### Responsive Chrome receipt
+
+At the required CSS viewport sizes, the post-fix Chrome session captured and visually inspected viewport screenshots. Every size rendered a non-empty app, kept `document.documentElement.scrollWidth === document.documentElement.clientWidth`, and preserved the route/agent composition without clipped controls:
+
+| Viewport | Verdict | Observed state |
+| --- | --- | --- |
+| 390×844 mobile | Pass | Single-column brief; CTA remains visible; route continues below the fold intentionally. |
+| 768×1024 tablet | Pass | Two-column brief fields with a full-width CTA; plan begins cleanly below. |
+| 1366×768 laptop | Pass | Sidebar, route, and handoff panel align; long route continues below the fold. |
+| 1440×900 desktop | Pass | Same composition with comfortable spacing and no clipping. |
+| 1920×1080 large desktop | Pass | Centered max-width content remains balanced; no overflow. |
+| 2560×1440 wide desktop | Pass | Wide composition remains centered and intact; no overflow. |
+
+At 390×844, seven Tab presses reached the skip link, four labeled selects, the step-free checkbox, and the build CTA; each reported a visible `3px solid` focus outline. The post-fix interaction emitted no new error-level logs; the Chrome session retained two historical pre-fix named-export errors from the earlier cached module URL, which are not evidence of the repaired load. Screenshots were inspected in-session rather than persisted as repository files; the numeric receipt and source/deployment revision are the reproducible record.
 
 The zero-dependency runtime smoke harness in `scripts/smoke.mjs` exercises the real tool callbacks and prints a stable JSON receipt. It is the reproducible non-browser evidence boundary for the complete inspect → search → draft → inspect → swap → denied save → confirmed save → reset workflow; it does not replace live browser validation.
 
@@ -143,7 +158,7 @@ The official rules describe four equally weighted Stage Two criteria:
 Submission checklist, based on the official rules:
 
 - [x] Public live URL reachable over HTTPS: [Sidequest](https://sidequest-webmcp.vercel.app) (HTTP 200 and deployment status verified).
-- [ ] Live WebMCP browser acceptance: native tool discovery still requires ChatGPT in-app browser or Chrome 149+ validation; Chrome visual smoke is verified, but the full responsive matrix is not.
+- [ ] Live WebMCP browser acceptance: native tool discovery still requires ChatGPT in-app browser or Chrome 149+ validation; Chrome visual smoke and the six-width responsive matrix are verified.
 - [x] Public source repository: [DominiqueAndrew/sidequest-webmcp](https://github.com/DominiqueAndrew/sidequest-webmcp).
 - [x] Open-source license: MIT in `LICENSE`.
 - [x] English project description and testing instructions in `docs/devpost-submission.md`.
@@ -167,4 +182,4 @@ Checked on 2026-08-27:
 
 The exact source revision, deployment URL, and validation receipts belong in the final release status and in `docs/devpost-submission.md`. Re-run `npm run check`, inspect `git rev-parse HEAD`, fetch the public URL, and verify the Vercel deployment is READY before treating a release as current.
 
-Known limitations are material: synthetic stops are not factual local listings; the planner omits travel time and hours; ranking weights are heuristic; no live-agent reliability sample or user study exists; native WebMCP inspection and the complete responsive screenshot matrix remain environment-blocked even though Chrome visual smoke now passes; and the WebMCP API/specification may change before the challenge deadline. These limitations are part of the claim boundary, not hidden product behavior.
+Known limitations are material: synthetic stops are not factual local listings; the planner omits travel time and hours; ranking weights are heuristic; no live-agent reliability sample or user study exists; native WebMCP inspection remains environment-blocked even though Chrome visual smoke and the six-width responsive matrix now pass; and the WebMCP API/specification may change before the challenge deadline. These limitations are part of the claim boundary, not hidden product behavior.
