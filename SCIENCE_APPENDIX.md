@@ -72,7 +72,7 @@ On the checked worktree, the following passed:
 ```text
 npm run check
 14 tests passed, 0 failed
-build check passed: 13 required files, 5 WebMCP tools, and accessibility/security guards
+build check passed: 14 required files, 5 WebMCP tools, and accessibility/security guards
 node --check src/logic.js
 ```
 
@@ -169,17 +169,16 @@ Submission checklist, based on the official rules:
 - [ ] Public YouTube demo under three minutes with audio.
 - [ ] Final human review of eligibility (age majority, supported country, and conflicts), project provenance if applicable, Devpost agreements, and submission confirmation.
 
-No Devpost submission is claimed. The remaining gates require a human-controlled recording/upload and final submission confirmation.
+No Devpost submission is claimed. The remaining gates require a human-controlled recording/upload and final submission confirmation. The exact handoff is in [`docs/human-gate-checklist.md`](docs/human-gate-checklist.md).
 
 ## Release receipt
 
 Checked on 2026-08-27:
 
 - Public repository: [DominiqueAndrew/sidequest-webmcp](https://github.com/DominiqueAndrew/sidequest-webmcp), MIT license.
-- Evidence-packet repository tip: `ad661ad7ed89fa843433436f9d80ad6c668744a9` (documentation-only; pushed to `main`).
-- Application/runtime revision: `3cd700b1bfc69f9869d0cffb135cca777202dda7`.
-- Production deployment: `dpl_G5acXESgUg4W2uw7U8ZvnN5GKiSr`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
-- Local evidence: `npm run check` = 14 passing tests plus the 13-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/premature-save-denial/human-approval/confirmed-save/reset receipt; `git diff --check` clean.
+- Evidence-packet and application revision: `68e8e21` (page-owned save approval; pushed to `main`).
+- Production deployment: `dpl_Aod89VWnNWwmKN3QH9idVFjCWP7j`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
+- Local evidence: `npm run check` = 14 passing tests plus the 14-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/premature-save-denial/human-approval/confirmed-save/reset receipt; `git diff --check` clean.
 - Public compatibility evidence: the stable alias returned HTTP 200, the expected HTML/runtime markers, and the restrictive CSP. This is a static/deployment check, not live WebMCP browser acceptance.
 - Browser boundary: the in-app browser attempt remained blank with no captured runtime/network exception and unsupported native `webmcp_list_tools`; no browser success is claimed.
 

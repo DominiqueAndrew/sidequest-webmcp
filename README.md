@@ -41,6 +41,7 @@ To inspect tools locally, use Chrome 149+ with `chrome://flags/#enable-webmcp-te
 - `src/main.js` and `src/styles.css` — human-first UI and responsive states.
 - `docs/spec.md` — product acceptance criteria and validation plan.
 - `docs/devpost-form-answers.md` — copy-ready, evidence-bound Devpost fields and human-only placeholders.
+- `docs/human-gate-checklist.md` — exact native-browser, video, eligibility, and submission handoff steps.
 - `SCIENCE_APPENDIX.md` — source links, decision model, safety evidence, rubric map, and reproducibility limits.
 
 ## License
