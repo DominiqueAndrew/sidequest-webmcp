@@ -11,6 +11,8 @@ Use one of these supported paths:
 
 Open the live URL: <https://sidequest-webmcp.vercel.app>
 
+Verified baseline before the native-browser check: runtime revision `2f136ca85cd1b8e75b5cfa0e85bb006d0c5ee4c3`, production deployment `dpl_J97t9kEvf5ej7t8W2n1rPr15b3gY` (READY). The deployment uses versioned `/src/main.js?v=startup-fallback-20260827` and `/src/styles.css?v=startup-fallback-20260827` assets.
+
 Expected page evidence:
 
 - The page renders Sidequest, shows `WebMCP ready` and `5 tools live`, and does not remain blank.
@@ -47,7 +49,7 @@ Capture or record:
 - the before/after approval state and the final saved-plan state;
 - the tested URL and, if available, the Vercel deployment identifier.
 
-Fallback: if the ChatGPT browser is blank, reports no captured runtime/console/network exception, or does not support `webmcp_list_tools`, stop that path after one bounded attempt and record the limitation. Use Chrome 149+ with the testing flag instead. If an authorized Chrome/WebMCP environment is unavailable, leave this gate unchecked; the local contract tests and ordinary Chrome visual smoke are supporting evidence only.
+Fallback: if the ChatGPT browser is blank, reports no captured runtime/console/network exception, or does not support `webmcp_list_tools`, stop that path after one bounded attempt and record the limitation. The current deployment keeps a visible startup diagnostic outside the app mount when JavaScript cannot hydrate; a completely white page is host/browser evidence, not native acceptance. Use Chrome 149+ with the testing flag instead. If an authorized Chrome/WebMCP environment is unavailable, leave this gate unchecked; the local contract tests and ordinary Chrome visual smoke are supporting evidence only.
 
 ## 2. Public demo video
 
