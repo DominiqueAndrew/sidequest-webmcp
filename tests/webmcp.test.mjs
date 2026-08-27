@@ -48,6 +48,17 @@ test('registers the native WebMCP contract without changing tool payloads', asyn
   }
 });
 
+test('surfaces native registration rejection to the runtime boundary', async () => {
+  const previousDocument = globalThis.document;
+  globalThis.document = { modelContext: { registerTool: async () => { throw new Error('registration failed'); } } };
+  try {
+    await assert.rejects(() => registerWebMcp(createStore()), /registration failed/);
+  } finally {
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+  }
+});
+
 test('agent drafting mutates the shared page state and saving is consent-gated', async () => {
   const store = createStore();
   const tools = buildTools(store);

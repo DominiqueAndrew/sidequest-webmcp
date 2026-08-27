@@ -7,7 +7,7 @@ import { createPlan, swapStop } from './logic.js';
 function activity(source, label, detail) { return { id: `activity-${Date.now()}-${Math.random().toString(16).slice(2)}`, source, label, detail, timestamp: Date.now() }; }
 
 export function createInitialState() {
-  return { brief: { ...DEFAULT_BRIEF }, plan: createPlan(DEFAULT_BRIEF, 'plan-saturday-demo'), savedPlans: [], activities: [activity('system', 'Brief loaded', 'A gentle, step-free 90-minute route is ready to tune.')], status: 'idle', error: null, webmcp: { mode: 'preview', toolCount: 5 }, swapForStopId: null, saveRequest: null, saveApproval: false };
+  return { brief: { ...DEFAULT_BRIEF }, plan: createPlan(DEFAULT_BRIEF, 'plan-saturday-demo'), savedPlans: [], activities: [activity('system', 'Brief loaded', 'A gentle, step-free 90-minute route is ready to tune.')], status: 'idle', error: null, webmcp: { mode: 'preview', toolCount: 5, error: null }, swapForStopId: null, saveRequest: null, saveApproval: false };
 }
 
 export function createStore(initial = createInitialState()) {

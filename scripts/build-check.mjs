@@ -25,6 +25,7 @@ for (const responsive of [':focus-visible', '@media (prefers-reduced-motion: red
 if (!runtime.includes("if (store.getState().status === 'building') return;")) throw new Error('human build action is not guarded against duplicate work');
 if (!runtime.includes("${state.status === 'building' ? 'disabled' : ''}")) throw new Error('loading action is not disabled in the UI');
 if (!runtime.includes("document.documentElement.dataset.appReady = 'true'")) throw new Error('successful render does not dismiss the static boot state');
+if (!runtime.includes('WebMCP unavailable') || !runtime.includes("mode: 'error'") || !runtime.includes('Tool registration failed.')) throw new Error('native registration failures are not visible');
 for (const affordance of ['requestSave', 'approveSave', 'data-action="approve-save"', 'saveApproval']) if (![runtime, source].some((content) => content.includes(affordance))) throw new Error(`missing consent affordance: ${affordance}`);
 if (!styles.includes('.save-prompt')) throw new Error('missing visible save consent state styles');
 for (const claim of ['https://sidequest-webmcp.vercel.app', 'https://github.com/DominiqueAndrew/sidequest-webmcp', 'npm run smoke', 'TBD', 'no Devpost submission has been made or claimed']) if (!submission.includes(claim)) throw new Error(`submission packet missing evidence boundary: ${claim}`);
