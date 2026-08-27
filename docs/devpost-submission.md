@@ -48,9 +48,9 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
-- Application/runtime revision: `d8f57da4d31d50986796f61b3449f364e9baa78a`
+- Application/runtime revision: `e93715f2c556618af4e2e97589d1da113d1d5b03`
 - Smoke harness introduced in: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd` (covered by the application revision above)
-- Last verified production deployment: `dpl_FskFYib6ZZeYicnsBrLarPHXkss1` (READY)
+- Last verified production deployment: `dpl_3foPeqg4MoaYboZarPeWAUrR7v1C` (READY)
 - Stable deployment alias: https://sidequest-webmcp.vercel.app
 
 ## Demo video

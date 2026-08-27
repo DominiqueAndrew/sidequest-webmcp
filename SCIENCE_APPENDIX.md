@@ -149,8 +149,8 @@ No Devpost submission is claimed. The remaining gates require a human-controlled
 Checked on 2026-08-27:
 
 - Public repository: [DominiqueAndrew/sidequest-webmcp](https://github.com/DominiqueAndrew/sidequest-webmcp), MIT license.
-- Application/runtime revision: `d8f57da4d31d50986796f61b3449f364e9baa78a`.
-- Production deployment: `dpl_FskFYib6ZZeYicnsBrLarPHXkss1`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
+- Application/runtime revision: `e93715f2c556618af4e2e97589d1da113d1d5b03`.
+- Production deployment: `dpl_3foPeqg4MoaYboZarPeWAUrR7v1C`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
 - Local evidence: `npm run check` = 12 passing tests plus the 13-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/confirmed-save/reset receipt; `git diff --check` clean.
 - Public compatibility evidence: the stable alias returned HTTP 200, the expected HTML/runtime markers, and the restrictive CSP. This is a static/deployment check, not live WebMCP browser acceptance.
 - Browser boundary: the in-app browser attempt remained blank with no captured runtime/network exception and unsupported native `webmcp_list_tools`; no browser success is claimed.
