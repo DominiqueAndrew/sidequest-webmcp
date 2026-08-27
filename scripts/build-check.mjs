@@ -12,7 +12,7 @@ const submission = await readFile('docs/devpost-form-answers.md', 'utf8');
 const vercel = await readFile('vercel.json', 'utf8');
 if (!html.includes('src="/src/main.js')) throw new Error('index.html does not point at the runtime entrypoint');
 if (!html.includes('<link rel="stylesheet" href="/src/styles.css?v=')) throw new Error('index.html does not link a versioned stylesheet');
-if (!html.includes('class="boot-state"') || !styles.includes('.boot-state')) throw new Error('missing static boot state for module or host failures');
+if (!html.includes('id="startup-status"') || !html.includes('class="boot-state"') || !styles.includes('.boot-state') || !styles.includes('#startup-status')) throw new Error('missing static boot state for module or host failures');
 if (/\bimport\s+["'][^"']+\.css["']/.test(runtime)) throw new Error('runtime imports CSS as JavaScript in the static deployment');
 if (!/import \{[^}]*ENERGY_LABELS[^}]*getStop[^}]*\} from ['"]\.\/data\.js['"]/.test(runtime) || !data.includes('export function getStop')) throw new Error('runtime/data.js named exports are out of sync');
 if (!/import \{[^}]*searchStops[^}]*\} from ['"]\.\/logic\.js['"]/.test(runtime) || !logic.includes('export function searchStops')) throw new Error('runtime/logic.js named exports are out of sync');
@@ -22,6 +22,7 @@ for (const landmark of ['<main', '<nav', '<label', 'aria-label="Main navigation"
 for (const responsive of [':focus-visible', '@media (prefers-reduced-motion: reduce)', '@media (max-width: 1080px)', '@media (max-width: 800px)', '@media (max-width: 480px)']) if (!styles.includes(responsive)) throw new Error(`missing responsive/accessibility CSS guard: ${responsive}`);
 if (!runtime.includes("if (store.getState().status === 'building') return;")) throw new Error('human build action is not guarded against duplicate work');
 if (!runtime.includes("${state.status === 'building' ? 'disabled' : ''}")) throw new Error('loading action is not disabled in the UI');
+if (!runtime.includes("document.documentElement.dataset.appReady = 'true'")) throw new Error('successful render does not dismiss the static boot state');
 for (const affordance of ['requestSave', 'approveSave', 'data-action="approve-save"', 'saveApproval']) if (![runtime, source].some((content) => content.includes(affordance))) throw new Error(`missing consent affordance: ${affordance}`);
 if (!styles.includes('.save-prompt')) throw new Error('missing visible save consent state styles');
 for (const claim of ['https://sidequest-webmcp.vercel.app', 'https://github.com/DominiqueAndrew/sidequest-webmcp', 'npm run smoke', 'TBD', 'no Devpost submission has been made or claimed']) if (!submission.includes(claim)) throw new Error(`submission packet missing evidence boundary: ${claim}`);

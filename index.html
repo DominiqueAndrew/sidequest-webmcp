@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f4f1ea" />
     <meta name="description" content="Sidequest makes a little room in your day." />
-    <link rel="stylesheet" href="/src/styles.css?v=boot-state-20260827" />
+    <link rel="stylesheet" href="/src/styles.css?v=startup-fallback-20260827" />
     <title>Sidequest — make a little room in your day</title>
   </head>
   <body>
-    <div id="app">
-      <div class="boot-state" role="status">
-        <p class="eyebrow">Sidequest</p>
-        <strong>Loading your little plan…</strong>
-        <p>If this stays visible, refresh once or use Chrome 149+ with WebMCP enabled.</p>
-      </div>
+    <div id="startup-status" class="boot-state" role="status" aria-live="polite">
+      <p class="eyebrow">Sidequest</p>
+      <strong>Loading your little plan…</strong>
+      <p>If this stays visible, refresh once or use Chrome 149+ with WebMCP enabled.</p>
     </div>
-    <script type="module" src="/src/main.js?v=claim-boundary-20260827"></script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js?v=startup-fallback-20260827"></script>
   </body>
 </html>
