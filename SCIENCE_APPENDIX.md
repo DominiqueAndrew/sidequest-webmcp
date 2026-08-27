@@ -16,6 +16,7 @@ Sources:
 | [Chrome WebMCP overview](https://developer.chrome.com/docs/ai/webmcp) | Structured discovery, JSON Schema, shared page state, reliability rationale, browser enablement, and user interaction for sensitive actions. |
 | [Chrome DevTools WebMCP inspection](https://developer.chrome.com/docs/devtools/application/webmcp) | Practical inspection and manual invocation of registered tools, schemas, and results. |
 | [Chrome agent security guidance](https://developer.chrome.com/docs/agents/security) | Indirect-injection risk, deterministic guardrails, read-only hints, output limits, origin restrictions, and human control for state changes. |
+| [Vercel Cache-Control headers](https://vercel.com/docs/caching/cache-control-headers) | `no-store` semantics and custom cache-control configuration for responses that must not be reused. |
 | [WCAG 2.2 Recommendation](https://www.w3.org/TR/WCAG22/) | Focus, labels, target-size, contrast, and resize-text criteria used for the UI review. |
 | [NIST AI RMF 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) | Voluntary risk-management framing for transparency, accountability, and human oversight. |
 | [Iyengar & Lepper (2000), PubMed](https://pubmed.ncbi.nlm.nih.gov/11138768/?dopt=Abstract) | Primary evidence that choice-set size can affect engagement and satisfaction in some decision contexts. |

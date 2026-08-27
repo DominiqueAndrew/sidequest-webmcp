@@ -52,7 +52,7 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 - Handoff reproducibility guard: `f5f56c7ab4a516331641aaca4c45fd2464f122fb` (`scripts/smoke.mjs` pins the documented default-ranked coffee swap; pushed to `main`).
 - Application/runtime revision: `1f9caeda290c1dee738b35dd1e0df60516bf9397` (startup fallback outside the app mount, explicit WebMCP registration-failure state, versioned assets, synthetic-demo label, page-owned save approval, and WebMCP runtime remain intact).
 - Smoke harness introduced in: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd` (covered by the application revision above)
-- Last verified production deployment: `dpl_Esd6qdWihaM885vykSA3YbnrmGDk` (READY)
+- Last verified production deployment: `dpl_9hSkJTtu3Xob96rfpiAK81ubJeRU` (READY); the HTML shell sends `no-store` to reduce stale-entrypoint failures.
 - Stable deployment alias: https://sidequest-webmcp.vercel.app
 
 ## Demo video
