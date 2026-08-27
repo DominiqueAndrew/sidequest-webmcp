@@ -48,7 +48,7 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
-- Application/runtime revision: `733a4717ad07e94ad8ae6d6ca0ff657694936265`
+- Application/runtime revision: `39c02a97cbde8726ab5f3fece88e3dfe38a5663f`
 - Smoke-harness/repository revision: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd`
 - Stable deployment alias: https://sidequest-webmcp.vercel.app
 
