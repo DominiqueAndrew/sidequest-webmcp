@@ -49,9 +49,9 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
 - Evidence-packet checklist commit: `226afbd78f62a74800775f8751d02088f3a05a45` (documentation-only human-gate checklist; pushed to `main`).
-- Application/runtime revision: `71a26189dcdcbadcf935531fe840f9b144933a12` (page-owned save approval plus visible static boot state; deployed below).
+- Application/runtime revision: `3cf645e7e25904c67c7551739547ea8035a82ed1` (page-owned save approval, visible static boot state, and versioned browser assets; deployed below).
 - Smoke harness introduced in: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd` (covered by the application revision above)
-- Last verified production deployment: `dpl_2RMYh2TAvgTiaYDiF8P3iuoczn9r` (READY)
+- Last verified production deployment: `dpl_9jZChZY2BekmU3Qk1XY9b4ukZWza` (READY)
 - Stable deployment alias: https://sidequest-webmcp.vercel.app
 
 ## Demo video
