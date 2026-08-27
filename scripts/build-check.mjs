@@ -9,6 +9,8 @@ const styles = await readFile('src/styles.css', 'utf8');
 const submission = await readFile('docs/devpost-form-answers.md', 'utf8');
 const vercel = await readFile('vercel.json', 'utf8');
 if (!html.includes('src="/src/main.js"')) throw new Error('index.html does not point at the runtime entrypoint');
+if (!html.includes('<link rel="stylesheet" href="/src/styles.css"')) throw new Error('index.html does not link the stylesheet');
+if (/\bimport\s+["'][^"']+\.css["']/.test(runtime)) throw new Error('runtime imports CSS as JavaScript in the static deployment');
 for (const affordance of ['lang="en"', 'name="viewport"']) if (!html.includes(affordance)) throw new Error(`missing document affordance: ${affordance}`);
 for (const affordance of ['skip-link', 'aria-live', 'aria-busy', 'prefers-reduced-motion']) if (![html, await readFile('src/main.js', 'utf8'), await readFile('src/styles.css', 'utf8')].some((content) => content.includes(affordance))) throw new Error(`missing accessibility affordance: ${affordance}`);
 for (const landmark of ['<main', '<nav', '<label', 'aria-label="Main navigation"', 'aria-labelledby=']) if (!runtime.includes(landmark)) throw new Error(`missing semantic UI affordance: ${landmark}`);

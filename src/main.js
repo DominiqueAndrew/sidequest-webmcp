@@ -1,4 +1,3 @@
-import './styles.css';
 import { ENERGY_LABELS, searchStops, getStop } from './data.js';
 import { createPlan, formatMinutes, formatTimeOffset } from './logic.js';
 import { createStore } from './store.js';
