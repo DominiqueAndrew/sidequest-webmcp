@@ -4,7 +4,7 @@ This annex records the evidence behind Sidequest’s material product and safety
 
 ## Evidence boundary
 
-This review was performed on 2026-08-27. The Devpost Hackathons connector available to the supervisor thread was not exposed in this worktree; it was not installed or probed. Event facts below therefore come from the official Devpost rules and OpenAI challenge page. Devpost states that individuals may enter, registration/submission closes on 2026-09-03 at 1:00 p.m. PDT (2026-09-03T20:00:00Z), judging runs Sep 4–21, and each of the top ten submissions receives $3,000 cash plus sponsor benefits. The rules also require a working live URL testable in ChatGPT’s in-app browser or Chrome with WebMCP enabled, a public code repository with an open-source license, and a public demo video under three minutes with audio. They say the optional Devpost plugin is not the official source of information, require English materials or translations, and require the project to remain free and available for judging/testing through the judging period. Rules can change; the official rules govern.
+This review was performed on 2026-08-27. The Devpost Hackathons connector available to the supervisor thread was not exposed in this worktree; it was not installed or probed. Event facts below therefore come from the official Devpost rules and OpenAI challenge page. Devpost states that eligible individuals may enter if they are at least the age of majority where they reside and meet the supported-country and conflict restrictions; registration/submission closes on 2026-09-03 at 1:00 p.m. PDT (2026-09-03T20:00:00Z), judging runs Sep 4–21, and each of the top ten submissions receives $3,000 cash plus sponsor benefits. The rules also require a working live URL testable in ChatGPT’s in-app browser or Chrome with WebMCP enabled, a public code repository with an open-source license, and a public demo video under three minutes with audio. A pre-existing project must be meaningfully extended with WebMCP during the submission period and document the prior/new work boundary. They say the optional Devpost plugin is not the official source of information, require English materials or translations, and require the project to remain free and available for judging/testing through the judging period. Rules can change; the official rules govern.
 
 Sources:
 
@@ -163,7 +163,7 @@ Submission checklist, based on the official rules:
 - [x] Open-source license: MIT in `LICENSE`.
 - [x] English project description and testing instructions in `docs/devpost-submission.md`.
 - [ ] Public YouTube demo under three minutes with audio.
-- [ ] Final human review of Devpost agreements and submission confirmation.
+- [ ] Final human review of eligibility (age majority, supported country, and conflicts), project provenance if applicable, Devpost agreements, and submission confirmation.
 
 No Devpost submission is claimed. The remaining gates require a human-controlled recording/upload and final submission confirmation.
 
