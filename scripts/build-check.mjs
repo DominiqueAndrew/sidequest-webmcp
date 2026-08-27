@@ -10,7 +10,7 @@ const data = await readFile('src/data.js', 'utf8');
 const logic = await readFile('src/logic.js', 'utf8');
 const submission = await readFile('docs/devpost-form-answers.md', 'utf8');
 const vercel = await readFile('vercel.json', 'utf8');
-if (!html.includes('src="/src/main.js"')) throw new Error('index.html does not point at the runtime entrypoint');
+if (!html.includes('src="/src/main.js')) throw new Error('index.html does not point at the runtime entrypoint');
 if (!html.includes('<link rel="stylesheet" href="/src/styles.css"')) throw new Error('index.html does not link the stylesheet');
 if (/\bimport\s+["'][^"']+\.css["']/.test(runtime)) throw new Error('runtime imports CSS as JavaScript in the static deployment');
 if (!/import \{[^}]*ENERGY_LABELS[^}]*getStop[^}]*\} from ['"]\.\/data\.js['"]/.test(runtime) || !data.includes('export function getStop')) throw new Error('runtime/data.js named exports are out of sync');
