@@ -28,7 +28,7 @@ Without structured tools, an agent would have to infer the meaning of a multi-fi
 
 The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied the first save with zero saved plans, accepted the explicit confirmation, and reset to a blank state. `npm run check` passes 13 tests and the static build gate for 13 required files, five WebMCP tools, and accessibility/security guards.
 
-These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Browser validation, screenshots, and the public video remain explicit release gates; the research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
+These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Native WebMCP acceptance, the complete responsive screenshot matrix, and the public video remain explicit release gates; a cache-busted Chrome visual smoke now confirms the deployed UI renders and the local handoff interaction updates state. The research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
 ## How to test
 
@@ -38,9 +38,9 @@ These are deterministic local/runtime results, not a user study or live-agent br
 4. Ask: “Swap the first stop for the other compatible coffee option, then show me the revised plan.”
 5. Ask: “Save this as A good little Saturday.” The agent should ask for confirmation because saving is a state-changing action. Confirm only if you want to test the final save.
 
-The project is designed to remain usable in a browser without WebMCP, where it reports “WebMCP preview.” This fallback is covered by the source path and static checks; live visual/browser acceptance is still an open gate in this worktree.
+The project is designed to remain usable in a browser without WebMCP, where it reports “WebMCP preview.” This fallback is covered by the source path and static checks; Chrome visual smoke is verified, while native tool discovery and the complete responsive matrix remain open gates.
 
-The evidence boundary, research sources, decision model, safety controls, rubric map, and unreconciled browser-validation limitation are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
+The evidence boundary, research sources, decision model, safety controls, rubric map, and the remaining native-WebMCP browser limitation are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
 Copy-ready form answers, rubric language, exact links, and the remaining human-only fields are in [`devpost-form-answers.md`](devpost-form-answers.md).
 
@@ -48,9 +48,9 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
-- Application/runtime revision: `e93715f2c556618af4e2e97589d1da113d1d5b03`
+- Application/runtime revision: `3cd700b1bfc69f9869d0cffb135cca777202dda7`
 - Smoke harness introduced in: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd` (covered by the application revision above)
-- Last verified production deployment: `dpl_3foPeqg4MoaYboZarPeWAUrR7v1C` (READY)
+- Last verified production deployment: `dpl_G5acXESgUg4W2uw7U8ZvnN5GKiSr` (READY)
 - Stable deployment alias: https://sidequest-webmcp.vercel.app
 
 ## Demo video
