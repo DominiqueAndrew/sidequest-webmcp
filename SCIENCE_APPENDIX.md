@@ -178,7 +178,7 @@ No Devpost submission is claimed. The remaining gates require a human-controlled
 Checked on 2026-08-27:
 
 - Public repository: [DominiqueAndrew/sidequest-webmcp](https://github.com/DominiqueAndrew/sidequest-webmcp), MIT license.
-- Evidence-packet checklist commit: `a566caf2adf88a7aa3cf5f8d42277e02960ef9f2` (documentation-only human-gate checklist, including reproducible inputs and the corrected compatible swap example; pushed to `main`).
+- Evidence-packet checklist commit: `3902db79bcaab8bf08849ef4cd04509718a73721` (documentation-only human-gate checklist, including reproducible inputs and the corrected executable swap example; pushed to `main`).
 - Application/runtime revision: `3cf645e7e25904c67c7551739547ea8035a82ed1` (page-owned save approval, visible static boot state, and versioned browser assets; deployed below).
 - Production deployment: `dpl_9jZChZY2BekmU3Qk1XY9b4ukZWza`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
 - Local evidence: `npm run check` = 14 passing tests plus the 14-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/premature-save-denial/human-approval/confirmed-save/reset receipt; `git diff --check` clean.
