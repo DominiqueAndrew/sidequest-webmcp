@@ -54,6 +54,25 @@ test('agent inspection and tuning operate on the same live route', async () => {
   assert.equal(store.getState().activities[0].label, 'One stop tuned');
 });
 
+test('tool schemas and callbacks bound malformed agent input', async () => {
+  const store = createStore();
+  const tools = buildTools(store);
+  const search = tools.find((tool) => tool.name === 'sidequest.search_stops');
+  const draft = tools.find((tool) => tool.name === 'sidequest.draft_plan');
+  const save = tools.find((tool) => tool.name === 'sidequest.save_plan');
+  assert.equal(search.inputSchema.properties.query.maxLength, 80);
+  assert.equal(draft.inputSchema.properties.start.maxLength, 60);
+  assert.equal(save.inputSchema.properties.name.maxLength, 60);
+  const searchResult = JSON.parse(await search.execute({ query: ' '.repeat(200), durationMinutes: Number.NaN, budget: Number.POSITIVE_INFINITY }));
+  assert.ok(Array.isArray(searchResult.results));
+  const drafted = JSON.parse(await draft.execute({ start: 'x'.repeat(200), durationMinutes: Number.POSITIVE_INFINITY, budget: -1 }));
+  assert.equal(drafted.plan.brief.start.length, 60);
+  assert.equal(drafted.plan.brief.durationMinutes, 90);
+  assert.equal(drafted.plan.brief.budget, 18);
+  const saved = JSON.parse(await save.execute({ name: 'n'.repeat(200), confirm: true }));
+  assert.equal(saved.saved.title.length, 60);
+});
+
 test('reset exposes a real blank state for the human workflow', () => {
   const store = createStore();
   assert.ok(store.getState().plan);
