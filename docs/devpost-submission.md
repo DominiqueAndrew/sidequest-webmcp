@@ -42,6 +42,8 @@ The project is also fully usable in a browser without WebMCP, where it clearly r
 
 The evidence boundary, research sources, decision model, safety controls, rubric map, and unreconciled browser-validation limitation are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
+Copy-ready form answers, rubric language, exact links, and the remaining human-only fields are in [`devpost-form-answers.md`](devpost-form-answers.md).
+
 ## Repository and license
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
