@@ -18,7 +18,9 @@ The wedge is not generic recommendations. The useful job is preserving a person'
 - Given a brief with 90 minutes, an $18 budget, gentle energy, and step-free access, when a plan is built, then it has at most 90 minutes, costs at most $18, contains distinct stop types, and every stop is step-free.
 - Given a draft route, when the person chooses “Tune this stop” and an alternative, then only that stop changes and the route is resequenced.
 - Given the current page in a WebMCP-capable browser, when tools are inspected, then `sidequest.search_stops`, `sidequest.draft_plan`, `sidequest.swap_stop`, `sidequest.inspect_plan`, and `sidequest.save_plan` are registered with JSON Schemas and executable callbacks.
-- Given an agent calls `sidequest.save_plan` without `confirm: true`, then no saved plan is created and the tool returns a confirmation request.
+- Given an agent calls `sidequest.save_plan` without `confirm: true`, then no saved plan is created and the page shows a confirmation request.
+- Given `sidequest.save_plan` is called with `confirm: true` before page approval for the current plan, then no saved plan is created and the tool returns a confirmation requirement.
+- Given a person approves the visible request for the current plan, when the agent calls `sidequest.save_plan` with `confirm: true`, then exactly one saved plan is created.
 - Given a browser without WebMCP, when the page loads, then the planner remains fully usable in preview mode and clearly reports that state.
 - At 390, 768, 1366, 1440, 1920, and 2560 pixel widths, when the planner is rendered, then there is no horizontal overflow and the brief, route, and primary action remain legible.
 

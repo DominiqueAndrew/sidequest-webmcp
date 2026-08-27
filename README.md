@@ -12,7 +12,7 @@ Planning a small outing is easy to describe but fiddly to execute: the route nee
 - `sidequest.draft_plan` composes a route from the current constraints.
 - `sidequest.swap_stop` preserves the draft while tuning one stop.
 - `sidequest.inspect_plan` gives the agent current page state instead of requiring DOM guesses.
-- `sidequest.save_plan` requires explicit confirmation before changing saved plans.
+- `sidequest.save_plan` requests visible page approval before a confirmed call can change saved plans.
 
 The same logic powers the normal UI and the WebMCP callbacks. The result is a human-first interface with a reliable agent handoff, rather than an agent-only chat surface.
 

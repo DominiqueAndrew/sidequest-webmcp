@@ -21,6 +21,8 @@ for (const landmark of ['<main', '<nav', '<label', 'aria-label="Main navigation"
 for (const responsive of [':focus-visible', '@media (prefers-reduced-motion: reduce)', '@media (max-width: 1080px)', '@media (max-width: 800px)', '@media (max-width: 480px)']) if (!styles.includes(responsive)) throw new Error(`missing responsive/accessibility CSS guard: ${responsive}`);
 if (!runtime.includes("if (store.getState().status === 'building') return;")) throw new Error('human build action is not guarded against duplicate work');
 if (!runtime.includes("${state.status === 'building' ? 'disabled' : ''}")) throw new Error('loading action is not disabled in the UI');
+for (const affordance of ['requestSave', 'approveSave', 'data-action="approve-save"', 'saveApproval']) if (![runtime, source].some((content) => content.includes(affordance))) throw new Error(`missing consent affordance: ${affordance}`);
+if (!styles.includes('.save-prompt')) throw new Error('missing visible save consent state styles');
 for (const claim of ['https://sidequest-webmcp.vercel.app', 'https://github.com/DominiqueAndrew/sidequest-webmcp', 'npm run smoke', 'TBD', 'no Devpost submission has been made or claimed']) if (!submission.includes(claim)) throw new Error(`submission packet missing evidence boundary: ${claim}`);
 for (const tool of ['sidequest.search_stops', 'sidequest.draft_plan', 'sidequest.swap_stop', 'sidequest.inspect_plan', 'sidequest.save_plan']) if (!source.includes(tool)) throw new Error(`missing WebMCP tool: ${tool}`);
 if (!source.includes('document.modelContext.registerTool')) throw new Error('current WebMCP registration path missing');

@@ -16,7 +16,7 @@ The person sets the shape of the window: where they start, how long they have, t
 
 WebMCP is what makes the agent handoff materially better. The page exposes its real state and planning logic as five structured tools: `search_stops`, `draft_plan`, `swap_stop`, `inspect_plan`, and `save_plan`. An agent can inspect the current brief, search compatible candidates, compose a valid route, and replace one stop without guessing from DOM labels or losing constraints. The normal interface and the agent callbacks use the same pure planning functions, so the plan stays visible and coherent throughout.
 
-Saving is deliberately human-controlled. `save_plan` returns a confirmation request unless the agent calls it with `confirm: true` after the person has explicitly agreed. The app has no account, payment, location tracking, booking, or external API dependency. Its collection is synthetic demo data and is labelled as such.
+Saving is deliberately human-controlled. `save_plan` first creates a visible request bound to the current plan; the person approves that request in the page, and only then can the agent's `confirm: true` call commit it. The app has no account, payment, location tracking, booking, or external API dependency. Its collection is synthetic demo data and is labelled as such.
 
 The judge-facing moment is a shared state machine, not a chat surface: inspect the live brief, search the constrained collection, draft a route, tune exactly one stop, ask before saving, then let the person decide. Each step produces a structured result and a visible activity entry. This is the smallest workflow that shows why WebMCP matters: the agent coordinates the fiddly state transitions, while the human keeps the intent and the final write.
 
@@ -26,7 +26,7 @@ Without structured tools, an agent would have to infer the meaning of a multi-fi
 
 ## Evidence snapshot
 
-The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied the first save with zero saved plans, accepted the explicit confirmation, and reset to a blank state. `npm run check` passes 13 tests and the static build gate for 13 required files, five WebMCP tools, and accessibility/security guards.
+The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → human_approve_save → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied both the initial and premature save attempts with zero saved plans, accepted the confirmed call only after page-owned approval, and reset to a blank state. `npm run check` passes 14 tests and the static build gate for 13 required files, five WebMCP tools, and accessibility/security guards.
 
 These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Native WebMCP acceptance and the public video remain explicit release gates; a cache-busted Chrome visual smoke confirms the deployed UI renders, the local handoff interaction updates state, and the six-width responsive matrix has been captured and inspected without horizontal overflow. The research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
@@ -36,7 +36,7 @@ These are deterministic local/runtime results, not a user study or live-agent br
 2. Use ChatGPT's in-app browser, or Chrome 149+ with `chrome://flags/#enable-webmcp-testing` enabled.
 3. Ask the agent: “I have 90 minutes near Riverside, want a gentle step-free plan under $18. Use Sidequest to inspect the current plan, search for a quiet stop, and draft the best route.”
 4. Ask: “Swap the first stop for the other compatible coffee option, then show me the revised plan.”
-5. Ask: “Save this as A good little Saturday.” The agent should ask for confirmation because saving is a state-changing action. Confirm only if you want to test the final save.
+5. Ask: “Save this as A good little Saturday.” The agent should create a visible approval request because saving is a state-changing action. Approve it in the page, then let the agent confirm the final save.
 
 The project is designed to remain usable in a browser without WebMCP, where it reports “WebMCP preview.” This fallback is covered by the source path and static checks; Chrome visual smoke and the six-width responsive matrix are verified, while native tool discovery remains an open gate.
 

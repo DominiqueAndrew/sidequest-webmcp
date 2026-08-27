@@ -60,9 +60,15 @@ test('agent drafting mutates the shared page state and saving is consent-gated',
   const denied = JSON.parse(await save.execute({ name: 'A good little Saturday', confirm: false }));
   assert.equal(denied.requiresConfirmation, true);
   assert.equal(store.getState().savedPlans.length, 0);
+  assert.equal(store.getState().saveRequest.source, 'agent');
+  assert.equal(store.getState().saveApproval, false);
   const nonBoolean = JSON.parse(await save.execute({ name: 'A good little Saturday', confirm: 'true' }));
   assert.equal(nonBoolean.requiresConfirmation, true);
   assert.equal(store.getState().savedPlans.length, 0);
+  const premature = JSON.parse(await save.execute({ name: 'A good little Saturday', confirm: true }));
+  assert.equal(premature.requiresConfirmation, true);
+  assert.equal(store.getState().savedPlans.length, 0);
+  assert.equal(store.approveSave('human'), true);
   const saved = JSON.parse(await save.execute({ name: 'A good little Saturday', confirm: true }));
   assert.equal(saved.ok, true);
   assert.equal(store.getState().savedPlans.length, 1);
@@ -100,8 +106,30 @@ test('tool schemas and callbacks bound malformed agent input', async () => {
   assert.equal(drafted.plan.brief.start.length, 60);
   assert.equal(drafted.plan.brief.durationMinutes, 90);
   assert.equal(drafted.plan.brief.budget, 18);
+  const requested = JSON.parse(await save.execute({ name: 'n'.repeat(200), confirm: false }));
+  assert.equal(requested.requiresConfirmation, true);
+  assert.equal(store.approveSave('human'), true);
   const saved = JSON.parse(await save.execute({ name: 'n'.repeat(200), confirm: true }));
   assert.equal(saved.saved.title.length, 60);
+});
+
+test('save approval is invalidated when the reviewed plan changes', async () => {
+  const store = createStore();
+  const tools = buildTools(store);
+  const draft = tools.find((tool) => tool.name === 'sidequest.draft_plan');
+  const save = tools.find((tool) => tool.name === 'sidequest.save_plan');
+  const swap = tools.find((tool) => tool.name === 'sidequest.swap_stop');
+  await draft.execute({ durationMinutes: 90, energy: 'gentle', budget: 18, stepFree: true });
+  await save.execute({ name: 'A reviewed Saturday', confirm: false });
+  assert.equal(store.approveSave('human'), true);
+  const stopId = store.getState().plan.stops[0].stopId;
+  const replacementId = stopId === 'juniper-coffee' ? 'canal-light-loop' : 'juniper-coffee';
+  const swapped = JSON.parse(await swap.execute({ stopId, replacementId }));
+  assert.equal(swapped.ok, true);
+  assert.equal(store.getState().saveApproval, false);
+  const denied = JSON.parse(await save.execute({ name: 'A reviewed Saturday', confirm: true }));
+  assert.equal(denied.requiresConfirmation, true);
+  assert.equal(store.getState().savedPlans.length, 0);
 });
 
 test('reset exposes a real blank state for the human workflow', () => {

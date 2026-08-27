@@ -16,7 +16,7 @@ When people get an unexpected free hour, they often want somewhere to go, not an
 
 The normal interface drafts three varied moments that fit. A person can tune one stop while keeping the rest of the route intact, then save when the plan feels like theirs. The collection is synthetic demo data; Sidequest does not claim real-time availability, booking, navigation, or local-listing accuracy.
 
-The differentiator is the handoff. The page exposes its actual state and planning transitions through five structured WebMCP tools: `search_stops`, `draft_plan`, `swap_stop`, `inspect_plan`, and `save_plan`. An agent can inspect the current brief, search compatible candidates, draft a constrained route, and replace one stop without guessing from DOM labels. The human UI and agent callbacks share the same pure planning logic, so the visible plan stays coherent. Saving is the only mutation and requires explicit confirmation.
+The differentiator is the handoff. The page exposes its actual state and planning transitions through five structured WebMCP tools: `search_stops`, `draft_plan`, `swap_stop`, `inspect_plan`, and `save_plan`. An agent can inspect the current brief, search compatible candidates, draft a constrained route, and replace one stop without guessing from DOM labels. The human UI and agent callbacks share the same pure planning logic, so the visible plan stays coherent. Saving is the only mutation: the agent requests it, the page shows a plan-bound approval step, and only a confirmed call after the person approves can save.
 
 ## What did you build?
 
@@ -32,11 +32,11 @@ Without structured tools, an agent must infer form semantics, search rendered co
 - Search the curated collection with hard filters using `sidequest.search_stops`.
 - Draft a route with `sidequest.draft_plan`.
 - Tune one stop with `sidequest.swap_stop` while preserving the rest of the route.
-- Request a save with `sidequest.save_plan`; the tool refuses until `confirm: true` is supplied after the person agrees.
+- Request a save with `sidequest.save_plan`; the page shows a visible approval request, and the tool refuses until the person approves that current plan and `confirm: true` is supplied.
 
 ## What can the person do?
 
-Set the shape of the free-time window, review the route totals, tune a stop, start over, and decide whether the draft should be saved. The person owns intent and the final state-changing action.
+Set the shape of the free-time window, review the route totals, tune a stop, start over, approve or decline the visible save request, and decide whether the draft should be saved. The person owns intent and the final state-changing action.
 
 ## How was it built?
 
@@ -44,7 +44,7 @@ The app is dependency-free JavaScript and CSS. `src/data.js` owns synthetic stop
 
 ## Testing and evidence
 
-`npm run check` passes 13 tests with zero failures and the static build gate for 13 required files, five WebMCP tools, accessibility/security guards, and this packet. `npm run smoke` exercises inspect → search → draft → inspect → swap → denied save → confirmed save → reset and returns a three-stop, 85-minute, $8 route from the synthetic collection. The full source links, model, safety policy, limitations, and reproducibility steps are in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
+`npm run check` passes 14 tests with zero failures and the static build gate for 13 required files, five WebMCP tools, accessibility/security guards, and this packet. `npm run smoke` exercises inspect → search → draft → inspect → swap → denied save → premature-save denial → human approval → confirmed save → reset and returns a three-stop, 85-minute, $8 route from the synthetic collection. The full source links, model, safety policy, limitations, and reproducibility steps are in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
 ## Rubric mapping
 

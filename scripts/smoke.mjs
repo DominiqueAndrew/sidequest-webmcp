@@ -35,9 +35,13 @@ assert.equal(swapped.ok, true);
 assert.deepEqual(swapped.plan.stops.slice(1).map(({ stopId }) => stopId), beforeIds.slice(1));
 
 const denied = await run('sidequest.save_plan', { name: 'A good little Saturday', confirm: false });
-assert.deepEqual(denied, { ok: false, requiresConfirmation: true, message: 'Ask the person to confirm before saving this plan.' });
+assert.deepEqual(denied, { ok: false, requiresConfirmation: true, message: 'Ask the person to approve the save in Sidequest, then call again with confirm true.' });
 assert.equal(store.getState().savedPlans.length, 0);
 
+const premature = await run('sidequest.save_plan', { name: 'A good little Saturday', confirm: true });
+assert.equal(premature.requiresConfirmation, true);
+assert.equal(store.getState().savedPlans.length, 0);
+assert.equal(store.approveSave('human'), true);
 const saved = await run('sidequest.save_plan', { name: 'A good little Saturday', confirm: true });
 assert.equal(saved.ok, true);
 assert.equal(store.getState().savedPlans.length, 1);
@@ -48,9 +52,9 @@ assert.equal(store.getState().activities[0].label, 'Fresh start');
 
 const route = swapped.plan;
 console.log(JSON.stringify({
-  workflow: ['inspect_plan', 'search_stops', 'draft_plan', 'inspect_plan', 'swap_stop', 'save_plan(false)', 'save_plan(true)', 'reset'],
+  workflow: ['inspect_plan', 'search_stops', 'draft_plan', 'inspect_plan', 'swap_stop', 'save_plan(false)', 'human_approve_save', 'save_plan(true)', 'reset'],
   search: { category: 'coffee', resultCount: search.results.length },
   draft: { stopCount: route.stops.length, stopIds: route.stops.map(({ stopId }) => stopId), totalMinutes: route.totalMinutes, totalCost: route.totalCost, constraintChecks: inspectedAfter.constraintChecks },
-  save: { deniedRequiresConfirmation: denied.requiresConfirmation, savedCountAfterDeny: 0, confirmed: saved.ok },
+  save: { deniedRequiresConfirmation: denied.requiresConfirmation, prematureConfirmDenied: premature.requiresConfirmation, savedCountAfterDeny: 0, humanApproved: true, confirmed: saved.ok },
   reset: { planIsNull: true, activity: 'Fresh start' },
 }, null, 2));

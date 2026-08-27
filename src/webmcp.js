@@ -147,7 +147,7 @@ export function buildTools(store) {
     {
       name: 'sidequest.save_plan',
       title: 'Save the plan',
-      description: "Save the reviewed adventure under a name. This changes the person's saved plans, so ask for confirmation before calling with confirm true.",
+      description: "Request a save for the reviewed adventure under a name. This changes the person's saved plans: first call with confirm false, have the person approve the visible Sidequest request, then call again with confirm true.",
       inputSchema: {
         type: 'object',
         properties: {
@@ -158,11 +158,21 @@ export function buildTools(store) {
       },
       execute: async (input) => {
         const values = asObject(input);
+        const name = boundedString(values.name, 60) ?? 'My Saturday';
+        const state = store.getState();
+        if (!state.plan) return json({ ok: false, error: 'There is no draft plan to save.' });
         if (values.confirm !== true) {
-          store.recordActivity('agent', 'Save waiting for consent', 'The agent asked before changing saved plans.');
-          return json({ ok: false, requiresConfirmation: true, message: 'Ask the person to confirm before saving this plan.' });
+          const request = store.requestSave(name, 'agent');
+          return request
+            ? json({ ok: false, requiresConfirmation: true, message: 'Ask the person to approve the save in Sidequest, then call again with confirm true.' })
+            : json({ ok: false, error: 'There is no draft plan to save.' });
         }
-        const saved = store.savePlan(boundedString(values.name, 60) ?? 'My Saturday', 'agent');
+        if (!state.saveApproval || state.saveRequest?.planId !== state.plan?.id) {
+          if (!state.saveRequest || state.saveRequest.planId !== state.plan?.id) store.requestSave(name, 'agent');
+          else store.recordActivity('agent', 'Save still waiting for consent', 'Approve the save in Sidequest before confirming it.');
+          return json({ ok: false, requiresConfirmation: true, message: 'Approve the save in Sidequest before calling with confirm true.' });
+        }
+        const saved = store.savePlan(name, 'agent');
         return json(saved ? { ok: true, saved } : { ok: false, error: 'There is no draft plan to save.' });
       },
     },

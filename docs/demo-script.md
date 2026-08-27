@@ -34,7 +34,7 @@ Say:
 
 “Save this as A good little Saturday.”
 
-Show the agent receiving the confirmation requirement from `sidequest.save_plan` with `confirm: false`; no saved plan should appear. Say: “The agent can prepare the plan, but saving still needs my yes.” Confirm the save with `confirm: true` and show “Plan saved.”
+Show the agent receiving the confirmation requirement from `sidequest.save_plan` with `confirm: false`; no saved plan should appear and the page should show its approval card. Say: “The agent can prepare the plan, but saving still needs my yes.” Click “Approve for agent,” then confirm the save with `confirm: true` and show “Plan saved.” If demonstrating the normal human UI instead, use “Save this plan” followed by “Approve & save.”
 
 ## 2:15–2:20 — Close
 
