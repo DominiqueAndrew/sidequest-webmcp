@@ -49,7 +49,7 @@ Capture or record:
 - the before/after approval state and the final saved-plan state;
 - the tested URL and, if available, the Vercel deployment identifier.
 
-Fallback: if the ChatGPT browser is blank, reports no captured runtime/console/network exception, or does not support `webmcp_list_tools`, stop that path after one bounded attempt and record the limitation. The current deployment keeps a visible startup diagnostic outside the app mount when JavaScript cannot hydrate; a completely white page is host/browser evidence, not native acceptance. Use Chrome 149+ with the testing flag instead. If an authorized Chrome/WebMCP environment is unavailable, leave this gate unchecked; the local contract tests and ordinary Chrome visual smoke are supporting evidence only.
+Fallback: if the ChatGPT browser is blank, reload the same URL once. The current deployment keeps a visible startup diagnostic outside the app mount when JavaScript cannot hydrate; a completely white page after that single reload is host/browser evidence, not native acceptance. If it remains blank, reports no captured runtime/console/network exception, or does not support `webmcp_list_tools`, stop that path and use Chrome 149+ with the testing flag instead. If an authorized Chrome/WebMCP environment is unavailable, leave this gate unchecked; the local contract tests and ordinary Chrome visual smoke are supporting evidence only.
 
 ## 2. Public demo video
 
