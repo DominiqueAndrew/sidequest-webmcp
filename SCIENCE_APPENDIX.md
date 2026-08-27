@@ -89,12 +89,15 @@ Run the following from a clean checkout:
 ```bash
 npm install
 npm run check
+npm run smoke
 npm run dev
 ```
 
 Open `http://localhost:4173` in ChatGPT’s in-app browser, or in Chrome 149+ after enabling `chrome://flags/#enable-webmcp-testing`. Inspect the page in Chrome DevTools’ WebMCP panel. Verify the five tools, then exercise: inspect → search → draft → swap → save without confirmation → explicit confirmation → reset. Capture screenshots at widths 390, 768, 1366, 1440, 1920, and 2560 pixels and check that `document.documentElement.scrollWidth <= document.documentElement.clientWidth`.
 
 This worktree could not complete that matrix because the local Playwright browser cache and Chrome/Chromium executables were unavailable, and network installation was intentionally not used. Therefore no browser screenshot, live WebMCP invocation, or in-app-browser result is claimed here.
+
+The zero-dependency runtime smoke harness in `scripts/smoke.mjs` exercises the real tool callbacks and prints a stable JSON receipt. It is the reproducible non-browser evidence boundary for the complete inspect → search → draft → inspect → swap → denied save → confirmed save → reset workflow; it does not replace live browser validation.
 
 ## Architecture and safety evidence
 

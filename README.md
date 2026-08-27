@@ -27,6 +27,7 @@ For a production check:
 
 ```bash
 npm run check
+npm run smoke
 ```
 
 To inspect tools locally, use Chrome 149+ with `chrome://flags/#enable-webmcp-testing` enabled, or ChatGPT's in-app browser. The app is also usable in preview mode in any modern browser.
