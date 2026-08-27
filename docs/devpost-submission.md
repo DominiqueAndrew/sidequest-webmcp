@@ -26,7 +26,7 @@ Without structured tools, an agent would have to infer the meaning of a multi-fi
 
 ## Evidence snapshot
 
-The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied the first save with zero saved plans, accepted the explicit confirmation, and reset to a blank state. `npm run check` passes 12 tests and the static build gate for 13 required files, five WebMCP tools, and accessibility/security guards.
+The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied the first save with zero saved plans, accepted the explicit confirmation, and reset to a blank state. `npm run check` passes 13 tests and the static build gate for 13 required files, five WebMCP tools, and accessibility/security guards.
 
 These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Browser validation, screenshots, and the public video remain explicit release gates; the research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 

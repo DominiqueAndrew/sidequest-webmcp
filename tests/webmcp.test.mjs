@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { buildTools } from '../src/webmcp.js';
+import { buildTools, registerWebMcp } from '../src/webmcp.js';
 import { createStore } from '../src/store.js';
 
 test('exposes the complete stateful WebMCP tool surface', async () => {
@@ -24,6 +24,28 @@ test('exposes the complete stateful WebMCP tool surface', async () => {
   const searchResult = JSON.parse(await search.execute({ energy: 'gentle', budget: 0, stepFree: true }));
   assert.deepEqual(searchResult.results.map((stop) => stop.id), ['canal-light-loop', 'maple-reading-room']);
   assert.equal(store.getState().activities[0].label, 'Searched the collection');
+});
+
+test('registers the native WebMCP contract without changing tool payloads', async () => {
+  const registered = [];
+  const previousDocument = globalThis.document;
+  globalThis.document = { modelContext: { registerTool: async (tool) => registered.push(tool) } };
+  try {
+    const status = await registerWebMcp(createStore());
+    assert.deepEqual(status, { mode: 'native', toolCount: 5 });
+    assert.deepEqual(registered.map((tool) => tool.name), [
+      'sidequest.search_stops',
+      'sidequest.draft_plan',
+      'sidequest.swap_stop',
+      'sidequest.inspect_plan',
+      'sidequest.save_plan',
+    ]);
+    assert.ok(registered.every((tool) => tool.inputSchema.type === 'object' && typeof tool.execute === 'function'));
+    assert.deepEqual(registered.filter((tool) => tool.annotations?.readOnlyHint).map((tool) => tool.name), ['sidequest.search_stops', 'sidequest.inspect_plan']);
+  } finally {
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+  }
 });
 
 test('agent drafting mutates the shared page state and saving is consent-gated', async () => {
