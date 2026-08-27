@@ -31,7 +31,7 @@ sidequest.inspect_plan {}
 sidequest.search_stops {"category":"coffee","energy":"gentle","budget":18,"stepFree":true}
 sidequest.draft_plan {"start":"Riverside","durationMinutes":90,"energy":"gentle","budget":18,"stepFree":true}
 sidequest.inspect_plan {}
-sidequest.swap_stop {"stopId":"juniper-coffee","replacementId":"canal-light-loop"}
+sidequest.swap_stop {"stopId":"juniper-coffee","replacementId":"pigeon-pine-bakery"}
 sidequest.save_plan {"name":"A good little Saturday","confirm":false}
 ```
 
