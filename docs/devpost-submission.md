@@ -26,7 +26,7 @@ Without structured tools, an agent would have to infer the meaning of a multi-fi
 
 ## Evidence snapshot
 
-The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied the first save with zero saved plans, accepted the explicit confirmation, and reset to a blank state. `npm run check` passes 11 tests and the static build gate for 12 required files, five WebMCP tools, and accessibility/security guards.
+The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied the first save with zero saved plans, accepted the explicit confirmation, and reset to a blank state. `npm run check` passes 12 tests and the static build gate for 13 required files, five WebMCP tools, and accessibility/security guards.
 
 These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Browser validation, screenshots, and the public video remain explicit release gates; the research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
@@ -48,8 +48,9 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
-- Application/runtime revision: `39c02a97cbde8726ab5f3fece88e3dfe38a5663f`
-- Smoke-harness/repository revision: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd`
+- Application/runtime revision: `d8f57da4d31d50986796f61b3449f364e9baa78a`
+- Smoke harness introduced in: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd` (covered by the application revision above)
+- Last verified production deployment: `dpl_FskFYib6ZZeYicnsBrLarPHXkss1` (READY)
 - Stable deployment alias: https://sidequest-webmcp.vercel.app
 
 ## Demo video

@@ -131,6 +131,17 @@ Submission checklist, based on the official rules:
 
 No Devpost submission is claimed. The remaining gates require a human-controlled recording/upload and final submission confirmation.
 
+## Release receipt
+
+Checked on 2026-08-27:
+
+- Public repository: [DominiqueAndrew/sidequest-webmcp](https://github.com/DominiqueAndrew/sidequest-webmcp), MIT license.
+- Application/runtime revision: `d8f57da4d31d50986796f61b3449f364e9baa78a`.
+- Production deployment: `dpl_FskFYib6ZZeYicnsBrLarPHXkss1`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
+- Local evidence: `npm run check` = 12 passing tests plus the 13-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/confirmed-save/reset receipt; `git diff --check` clean.
+- Public compatibility evidence: the stable alias returned HTTP 200, the expected HTML/runtime markers, and the restrictive CSP. This is a static/deployment check, not live WebMCP browser acceptance.
+- Browser boundary: the in-app browser attempt remained blank with no captured runtime/network exception and unsupported native `webmcp_list_tools`; no browser success is claimed.
+
 ## Reproducibility and limitations
 
 The exact source revision, deployment URL, and validation receipts belong in the final release status and in `docs/devpost-submission.md`. Re-run `npm run check`, inspect `git rev-parse HEAD`, fetch the public URL, and verify the Vercel deployment is READY before treating a release as current.
