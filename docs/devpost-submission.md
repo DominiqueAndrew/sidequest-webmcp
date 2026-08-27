@@ -38,7 +38,7 @@ These are deterministic local/runtime results, not a user study or live-agent br
 4. Ask: “Swap the first stop for the other compatible coffee option, then show me the revised plan.”
 5. Ask: “Save this as A good little Saturday.” The agent should ask for confirmation because saving is a state-changing action. Confirm only if you want to test the final save.
 
-The project is also fully usable in a browser without WebMCP, where it clearly reports “WebMCP preview.”
+The project is designed to remain usable in a browser without WebMCP, where it reports “WebMCP preview.” This fallback is covered by the source path and static checks; live visual/browser acceptance is still an open gate in this worktree.
 
 The evidence boundary, research sources, decision model, safety controls, rubric map, and unreconciled browser-validation limitation are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 

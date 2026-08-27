@@ -63,6 +63,7 @@ The app is dependency-free JavaScript and CSS. `src/data.js` owns synthetic stop
 
 ## Human-only finalization fields
 
+- Live WebMCP browser acceptance: `TBD — human must verify native tool discovery and the visible workflow in ChatGPT’s in-app browser or Chrome 149+.`
 - Public demo video: `TBD — human must record/upload a public video under three minutes with audio.`
 - Eligibility and Devpost agreements: `TBD — human must review and accept.`
 - Final submission confirmation: `TBD — no Devpost submission has been made or claimed.`

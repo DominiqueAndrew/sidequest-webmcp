@@ -4,7 +4,7 @@ This annex records the evidence behind Sidequest’s material product and safety
 
 ## Evidence boundary
 
-This review was performed on 2026-08-27. The Devpost Hackathons connector available to the supervisor thread was not exposed in this worktree; it was not installed or probed. Event facts below therefore come from the official Devpost rules and OpenAI challenge page. Devpost states that individuals may enter, registration/submission closes on 2026-09-03 at 1:00 p.m. PDT (2026-09-03T20:00:00Z), and each of the top ten submissions receives $3,000 cash plus sponsor benefits. The rules also require a working live URL testable in ChatGPT’s in-app browser or Chrome with WebMCP enabled, a public code repository with an open-source license, and a public demo video under three minutes with audio. Rules can change; the official rules govern.
+This review was performed on 2026-08-27. The Devpost Hackathons connector available to the supervisor thread was not exposed in this worktree; it was not installed or probed. Event facts below therefore come from the official Devpost rules and OpenAI challenge page. Devpost states that individuals may enter, registration/submission closes on 2026-09-03 at 1:00 p.m. PDT (2026-09-03T20:00:00Z), judging runs Sep 4–21, and each of the top ten submissions receives $3,000 cash plus sponsor benefits. The rules also require a working live URL testable in ChatGPT’s in-app browser or Chrome with WebMCP enabled, a public code repository with an open-source license, and a public demo video under three minutes with audio. They say the optional Devpost plugin is not the official source of information, require English materials or translations, and require the project to remain free and available for judging/testing through the judging period. Rules can change; the official rules govern.
 
 Sources:
 
@@ -120,7 +120,8 @@ The official rules describe four equally weighted Stage Two criteria:
 
 Submission checklist, based on the official rules:
 
-- [x] Working implementation and live URL: [Sidequest](https://sidequest-webmcp.vercel.app) (deployment status must be rechecked after each release).
+- [x] Public live URL reachable over HTTPS: [Sidequest](https://sidequest-webmcp.vercel.app) (HTTP 200 and deployment status verified).
+- [ ] Live WebMCP browser acceptance: native tool discovery and visual workflow still require ChatGPT in-app browser or Chrome 149+ validation.
 - [x] Public source repository: [DominiqueAndrew/sidequest-webmcp](https://github.com/DominiqueAndrew/sidequest-webmcp).
 - [x] Open-source license: MIT in `LICENSE`.
 - [x] English project description and testing instructions in `docs/devpost-submission.md`.
