@@ -48,6 +48,7 @@ test('agent inspection and tuning operate on the same live route', async () => {
   const before = store.getState().plan.stops.map(({ stopId }) => stopId);
   const inspected = JSON.parse(await inspect.execute({}));
   assert.deepEqual(inspected.plan.stops.map(({ stopId }) => stopId), before);
+  assert.deepEqual(inspected.constraintChecks, { timeFits: true, budgetFits: true, energyFits: true, accessFits: true, distinctCategories: 3, varietyFits: true });
   const result = JSON.parse(await swap.execute({ stopId: before[0], replacementId: 'juniper-coffee' }));
   assert.equal(result.ok, true);
   assert.deepEqual(store.getState().plan.stops.slice(1).map(({ stopId }) => stopId), before.slice(1));

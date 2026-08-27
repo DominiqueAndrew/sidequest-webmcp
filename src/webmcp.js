@@ -1,7 +1,9 @@
+import { getStop } from './data.js';
 import { searchStops, createPlan, swapStop } from './logic.js';
 
 const CATEGORIES = ['coffee', 'wander', 'maker', 'quiet'];
 const ENERGIES = ['bright', 'balanced', 'gentle'];
+const ENERGY_RANK = { gentle: 0, balanced: 1, bright: 2 };
 
 function asObject(input) {
   return typeof input === 'object' && input !== null ? input : {};
@@ -33,6 +35,20 @@ function briefFrom(input, fallback) {
     energy: enumValue(input.energy, ENERGIES) ?? fallback.energy,
     budget: boundedNumber(input.budget, 0, 100) ?? fallback.budget,
     stepFree: typeof input.stepFree === 'boolean' ? input.stepFree : fallback.stepFree,
+  };
+}
+
+function constraintChecks(plan) {
+  if (!plan) return null;
+  const stops = plan.stops.map(({ stopId }) => getStop(stopId)).filter(Boolean);
+  const distinctCategories = new Set(stops.map((stop) => stop.category)).size;
+  return {
+    timeFits: plan.totalMinutes <= plan.brief.durationMinutes,
+    budgetFits: plan.totalCost <= plan.brief.budget,
+    energyFits: stops.every((stop) => ENERGY_RANK[stop.energy] <= ENERGY_RANK[plan.brief.energy]),
+    accessFits: !plan.brief.stepFree || stops.every((stop) => stop.stepFree),
+    distinctCategories,
+    varietyFits: distinctCategories >= Math.min(3, stops.length),
   };
 }
 
@@ -119,13 +135,13 @@ export function buildTools(store) {
     {
       name: 'sidequest.inspect_plan',
       title: 'Inspect the current plan',
-      description: "Read the person's current brief and draft so you can make a context-aware next suggestion without guessing what is on screen.",
+      description: "Read the person's current brief, draft, and constraint receipt so you can make a context-aware next suggestion without guessing what is on screen.",
       inputSchema: { type: 'object', properties: {} },
       annotations: { readOnlyHint: true },
       execute: async () => {
         const state = store.getState();
         store.recordActivity('agent', 'Read the current plan', state.plan ? 'The agent received the live brief and draft.' : 'The agent received the live brief; no draft exists yet.');
-        return json({ brief: state.brief, plan: state.plan, savedPlans: state.savedPlans.length });
+        return json({ brief: state.brief, plan: state.plan, constraintChecks: constraintChecks(state.plan), savedPlans: state.savedPlans.length });
       },
     },
     {

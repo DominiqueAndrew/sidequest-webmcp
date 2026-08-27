@@ -28,6 +28,7 @@ assert.ok(replacementId, 'the constrained search should provide a replacement');
 
 const inspectedAfter = await run('sidequest.inspect_plan', {});
 assert.deepEqual(inspectedAfter.plan.stops.map(({ stopId }) => stopId), beforeIds);
+assert.deepEqual(inspectedAfter.constraintChecks, { timeFits: true, budgetFits: true, energyFits: true, accessFits: true, distinctCategories: 3, varietyFits: true });
 
 const swapped = await run('sidequest.swap_stop', { stopId: beforeIds[0], replacementId });
 assert.equal(swapped.ok, true);
@@ -49,7 +50,7 @@ const route = swapped.plan;
 console.log(JSON.stringify({
   workflow: ['inspect_plan', 'search_stops', 'draft_plan', 'inspect_plan', 'swap_stop', 'save_plan(false)', 'save_plan(true)', 'reset'],
   search: { category: 'coffee', resultCount: search.results.length },
-  draft: { stopCount: route.stops.length, stopIds: route.stops.map(({ stopId }) => stopId), totalMinutes: route.totalMinutes, totalCost: route.totalCost },
+  draft: { stopCount: route.stops.length, stopIds: route.stops.map(({ stopId }) => stopId), totalMinutes: route.totalMinutes, totalCost: route.totalCost, constraintChecks: inspectedAfter.constraintChecks },
   save: { deniedRequiresConfirmation: denied.requiresConfirmation, savedCountAfterDeny: 0, confirmed: saved.ok },
   reset: { planIsNull: true, activity: 'Fresh start' },
 }, null, 2));

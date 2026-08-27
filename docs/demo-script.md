@@ -18,7 +18,7 @@ In ChatGPT’s in-app browser or a WebMCP-enabled Chrome session, say:
 
 “Use Sidequest to inspect the current plan, search for a quiet step-free stop, and draft a gentle route under $18.”
 
-Show the agent using `sidequest.inspect_plan`, `sidequest.search_stops`, and `sidequest.draft_plan`. Point out that inspect returns the live brief and draft, search returns structured compatible candidates, and draft updates the same visible plan. The “Recent activity” rail should show the handoff.
+Show the agent using `sidequest.inspect_plan`, `sidequest.search_stops`, and `sidequest.draft_plan`. Point out that inspect returns the live brief, draft, and constraint receipt, search returns structured compatible candidates, and draft updates the same visible plan. The “Recent activity” rail should show the handoff.
 
 ## 1:30–1:55 — Keep the feeling, change one thing
 

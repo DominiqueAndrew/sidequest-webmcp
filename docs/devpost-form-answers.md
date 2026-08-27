@@ -28,7 +28,7 @@ Without structured tools, an agent must infer form semantics, search rendered co
 
 ## What can the agent do?
 
-- Inspect the current brief and draft with `sidequest.inspect_plan`.
+- Inspect the current brief, draft, and machine-readable constraint receipt with `sidequest.inspect_plan`.
 - Search the curated collection with hard filters using `sidequest.search_stops`.
 - Draft a route with `sidequest.draft_plan`.
 - Tune one stop with `sidequest.swap_stop` while preserving the rest of the route.
