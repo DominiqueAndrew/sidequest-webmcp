@@ -48,7 +48,7 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
-- Evidence-packet repository tip: `226afbd78f62a74800775f8751d02088f3a05a45` (documentation-only human-gate checklist; pushed to `main`).
+- Evidence-packet checklist commit: `226afbd78f62a74800775f8751d02088f3a05a45` (documentation-only human-gate checklist; pushed to `main`).
 - Application/runtime revision: `68e8e2160d922b83cdff72bb836825b66e7dcb15` (page-owned save approval; deployed below).
 - Smoke harness introduced in: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd` (covered by the application revision above)
 - Last verified production deployment: `dpl_Aod89VWnNWwmKN3QH9idVFjCWP7j` (READY)
