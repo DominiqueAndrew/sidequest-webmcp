@@ -38,7 +38,7 @@ The evidence boundary, research sources, decision model, safety controls, rubric
 
 - Repository: https://github.com/DominiqueAndrew/sidequest-webmcp
 - License: MIT
-- Deployed commit: update after the next production deployment.
+- Deployed commit: `733a4717ad07e94ad8ae6d6ca0ff657694936265`
 
 ## Demo video
 
