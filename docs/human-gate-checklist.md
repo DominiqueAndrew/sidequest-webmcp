@@ -24,6 +24,19 @@ Use this short agent script:
 3. “Swap the first stop for the other compatible coffee option and show me the revised plan.”
 4. “Save this as A good little Saturday.”
 
+If the browser inspector offers manual invocation, the equivalent bounded inputs are:
+
+```text
+sidequest.inspect_plan {}
+sidequest.search_stops {"category":"coffee","energy":"gentle","budget":18,"stepFree":true}
+sidequest.draft_plan {"start":"Riverside","durationMinutes":90,"energy":"gentle","budget":18,"stepFree":true}
+sidequest.inspect_plan {}
+sidequest.swap_stop {"stopId":"juniper-coffee","replacementId":"canal-light-loop"}
+sidequest.save_plan {"name":"A good little Saturday","confirm":false}
+```
+
+Use the stop IDs returned by `search_stops` if the live draft differs; do not invent an ID. After the page approval, repeat only the final call with `"confirm":true`.
+
 For the save gate, the first `sidequest.save_plan` call must use `confirm: false`. Expected result: a structured confirmation requirement, no saved plan, and a visible page request. Click **Approve for agent** in Sidequest. Only then should the agent call `sidequest.save_plan` with `confirm: true`; expected result: one saved plan and visible `Plan saved`. If the person changes the route before confirmation, the old approval must no longer authorize the new plan.
 
 Capture or record:
