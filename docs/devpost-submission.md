@@ -50,9 +50,9 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 - License: MIT
 - Evidence-packet checklist commit: `3902db79bcaab8bf08849ef4cd04509718a73721` (documentation-only human-gate checklist, including reproducible inputs and the corrected executable swap example; pushed to `main`).
 - Handoff reproducibility guard: `f5f56c7ab4a516331641aaca4c45fd2464f122fb` (`scripts/smoke.mjs` pins the documented default-ranked coffee swap; pushed to `main`).
-- Application/runtime revision: `58fd6f847c9f8cf11e4213ace529804e08e4cccd` (explicit synthetic-demo label and versioned module asset; page-owned save approval, visible static boot state, and WebMCP runtime remain intact).
+- Application/runtime revision: `2f136ca85cd1b8e75b5cfa0e85bb006d0c5ee4c3` (startup fallback outside the app mount, versioned assets, explicit synthetic-demo label, page-owned save approval, and WebMCP runtime remain intact).
 - Smoke harness introduced in: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd` (covered by the application revision above)
-- Last verified production deployment: `dpl_71gweLQDpDLEtSB1XgpuNyXM8v9P` (READY)
+- Last verified production deployment: `dpl_J97t9kEvf5ej7t8W2n1rPr15b3gY` (READY)
 - Stable deployment alias: https://sidequest-webmcp.vercel.app
 
 ## Demo video
