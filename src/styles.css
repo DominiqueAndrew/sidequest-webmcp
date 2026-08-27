@@ -70,6 +70,7 @@ h2 { margin: 7px 0 0; color: var(--ink); font-family: Georgia, serif; font-size:
 .brief-fields { display: grid; grid-template-columns: repeat(4, minmax(105px, 1fr)) minmax(143px, 1.15fr) minmax(170px, 1.35fr); align-items: end; gap: 10px; }
 label { display: grid; gap: 7px; color: var(--muted); font-size: 10px; font-weight: 650; }
 select { width: 100%; appearance: none; border: 1px solid var(--line); border-radius: 8px; background: #fffefa url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23747b73' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 9px center; padding: 11px 26px 11px 11px; color: var(--ink); font-size: 12px; outline: none; }
+button:disabled { cursor: wait; opacity: .7; }
 select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(217,109,67,.12); }
 .check-field { display: flex; grid-template-columns: auto 1fr; align-items: center; gap: 8px; min-height: 39px; padding: 0 3px; }
 .check-field input { position: absolute; opacity: 0; pointer-events: none; }
