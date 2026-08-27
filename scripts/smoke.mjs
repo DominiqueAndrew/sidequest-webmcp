@@ -23,8 +23,9 @@ assert.equal(drafted.ok, true);
 assert.equal(drafted.plan.totalMinutes <= brief.durationMinutes, true);
 assert.equal(drafted.plan.totalCost <= brief.budget, true);
 const beforeIds = drafted.plan.stops.map(({ stopId }) => stopId);
-const replacementId = search.results.find(({ id }) => id !== beforeIds[0])?.id;
-assert.ok(replacementId, 'the constrained search should provide a replacement');
+assert.equal(beforeIds[0], 'pigeon-pine-bakery', 'the documented handoff starts with the ranked default coffee stop');
+const replacementId = 'juniper-coffee';
+assert.ok(search.results.some(({ id }) => id === replacementId), 'the constrained search should provide the documented replacement');
 
 const inspectedAfter = await run('sidequest.inspect_plan', {});
 assert.deepEqual(inspectedAfter.plan.stops.map(({ stopId }) => stopId), beforeIds);
