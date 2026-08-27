@@ -71,12 +71,12 @@ On the checked worktree, the following passed:
 
 ```text
 npm run check
-15 tests passed, 0 failed
+16 tests passed, 0 failed
 build check passed: 14 required files, 5 WebMCP tools, and accessibility/security guards
 node --check src/logic.js
 ```
 
-The tests cover a varied route, hard-constraint search, resequencing, formatting, fewer-than-three fallback behavior, aggregate fallback bounds, swap rejection, tool names/schemas/callbacks, native registration payload/order, shared-state drafting, page-owned confirmation-gated saving, approval invalidation after a route change, and a genuinely blank reset state. The native-registration test supplies a local `document.modelContext.registerTool` stub and restores it after the assertion; it verifies the page-owned contract but cannot prove a browser host discovers or invokes the tools.
+The tests cover a varied route, hard-constraint search, resequencing, formatting, fewer-than-three fallback behavior, aggregate fallback bounds, swap rejection, tool names/schemas/callbacks, native registration payload/order, invocation through the registered callbacks, shared-state drafting, page-owned confirmation-gated saving, approval invalidation after a route change, and a genuinely blank reset state. The native-registration tests supply a local `document.modelContext.registerTool` stub and restore it after each assertion; they verify the page-owned contract and callback path but cannot prove a browser host discovers or invokes the tools.
 
 ### Tool-level metrics
 
@@ -182,7 +182,7 @@ Checked on 2026-08-27:
 - Handoff reproducibility guard: `f5f56c7ab4a516331641aaca4c45fd2464f122fb` (`scripts/smoke.mjs` pins the documented default-ranked coffee swap; pushed to `main`).
 - Application/runtime revision: `1f9caeda290c1dee738b35dd1e0df60516bf9397` (startup fallback outside the app mount, explicit WebMCP registration-failure state, versioned assets, synthetic-demo label, page-owned save approval, and WebMCP runtime remain intact).
 - Production deployment: `dpl_Esd6qdWihaM885vykSA3YbnrmGDk`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
-- Local evidence: `npm run check` = 15 passing tests plus the 14-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/premature-save-denial/human-approval/confirmed-save/reset receipt; `git diff --check` clean.
+- Local evidence: `npm run check` = 16 passing tests plus the 14-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/premature-save-denial/human-approval/confirmed-save/reset receipt; `git diff --check` clean.
 - Public compatibility evidence: the stable alias returned HTTP 200, the expected HTML/runtime markers, and the restrictive CSP. This is a static/deployment check, not live WebMCP browser acceptance.
 - Browser boundary: the in-app browser attempt remained blank with no captured runtime/network exception and unsupported native `webmcp_list_tools`; no browser success is claimed.
 

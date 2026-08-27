@@ -59,6 +59,41 @@ test('surfaces native registration rejection to the runtime boundary', async () 
   }
 });
 
+test('registered native callbacks complete the shared handoff', async () => {
+  const registered = [];
+  const store = createStore();
+  const previousDocument = globalThis.document;
+  globalThis.document = { modelContext: { registerTool: async (tool) => registered.push(tool) } };
+  try {
+    await registerWebMcp(store);
+    const tool = (name) => registered.find((candidate) => candidate.name === name);
+    const inspect = tool('sidequest.inspect_plan');
+    const search = tool('sidequest.search_stops');
+    const draft = tool('sidequest.draft_plan');
+    const swap = tool('sidequest.swap_stop');
+    const save = tool('sidequest.save_plan');
+    assert.ok(inspect && search && draft && swap && save);
+    const initial = JSON.parse(await inspect.execute({}));
+    assert.ok(initial.plan);
+    const candidates = JSON.parse(await search.execute({ category: 'coffee', energy: 'gentle', budget: 18, stepFree: true }));
+    assert.equal(candidates.results.length, 2);
+    const drafted = JSON.parse(await draft.execute({ start: 'Riverside', durationMinutes: 90, energy: 'gentle', budget: 18, stepFree: true }));
+    const before = drafted.plan.stops.map(({ stopId }) => stopId);
+    const swapped = JSON.parse(await swap.execute({ stopId: before[0], replacementId: 'juniper-coffee' }));
+    assert.equal(swapped.ok, true);
+    assert.deepEqual(swapped.plan.stops.slice(1).map(({ stopId }) => stopId), before.slice(1));
+    const denied = JSON.parse(await save.execute({ name: 'A registered Saturday', confirm: false }));
+    assert.equal(denied.requiresConfirmation, true);
+    assert.equal(store.approveSave('human'), true);
+    const saved = JSON.parse(await save.execute({ name: 'A registered Saturday', confirm: true }));
+    assert.equal(saved.ok, true);
+    assert.equal(store.getState().savedPlans.length, 1);
+  } finally {
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+  }
+});
+
 test('agent drafting mutates the shared page state and saving is consent-gated', async () => {
   const store = createStore();
   const tools = buildTools(store);

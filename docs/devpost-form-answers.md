@@ -44,7 +44,7 @@ The app is dependency-free JavaScript and CSS. `src/data.js` owns synthetic stop
 
 ## Testing and evidence
 
-`npm run check` passes 15 tests with zero failures and the static build gate for 14 required files, five WebMCP tools, accessibility/security guards, and this packet. `npm run smoke` exercises inspect → search → draft → inspect → swap → denied save → premature-save denial → human approval → confirmed save → reset and returns a three-stop, 85-minute, $8 route from the synthetic collection. The full source links, model, safety policy, limitations, reproducibility steps, and human-gate handoff are in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md) and [`human-gate-checklist.md`](human-gate-checklist.md).
+`npm run check` passes 16 tests with zero failures and the static build gate for 14 required files, five WebMCP tools, accessibility/security guards, and this packet. `npm run smoke` exercises inspect → search → draft → inspect → swap → denied save → premature-save denial → human approval → confirmed save → reset and returns a three-stop, 85-minute, $8 route from the synthetic collection. The full source links, model, safety policy, limitations, reproducibility steps, and human-gate handoff are in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md) and [`human-gate-checklist.md`](human-gate-checklist.md).
 
 ## Rubric mapping
 
