@@ -21,6 +21,10 @@ Sources:
 | [Iyengar & Lepper (2000), PubMed](https://pubmed.ncbi.nlm.nih.gov/11138768/?dopt=Abstract) | Primary evidence that choice-set size can affect engagement and satisfaction in some decision contexts. |
 | [Chernev, Böckenholt & Goodman (2015)](https://myscp.onlinelibrary.wiley.com/doi/full/10.1016/j.jcps.2014.08.002) | Meta-analysis showing that choice overload is contextual, moderated by task difficulty, preference uncertainty, and decision goals. |
 
+### Submission-period provenance
+
+The public repository history begins with `6208e5384f736801bd4d376fc8c3fd255beb642e` (`chore: initialize hackathon workspace`) at `2026-08-27T15:26:43+02:00`, followed by the initial Sidequest implementation in `3a30039cd982ecbd9cc660b244b8d06599b47f4d` at `2026-08-27T15:39:19+02:00`. Both timestamps fall after the official Submission Period opened on August 25, 2026 at 11:00 a.m. Pacific Time. This is repository-history evidence that this submitted repository was created during the Submission Period; if any material existed outside this history, the entrant must disclose that boundary honestly in the Devpost submission.
+
 ## Claim-to-evidence map
 
 | Material claim | Classification | Evidence and current status |
@@ -29,7 +33,7 @@ Sources:
 | A small, varied route is a defensible wedge for a short free-time decision. | Research-backed hypothesis | Choice research supports testing constrained sets in context, not a universal “fewer is always better” rule. Sidequest currently offers three moments and a small curated collection; no user study has been run. |
 | A generated route respects hard time, budget, energy, access, and variety constraints when a full three-stop combination exists. | Calculated/property-tested claim | `canFit`, combination selection, aggregate fallback, and swap guards in `src/logic.js`; covered by the automated tests listed below. Synthetic stops have no real-world availability guarantee. |
 | An agent can prepare and tune a plan while a person controls saving. | Engineering/safety claim | Read-only annotations mark search/inspect; `save_plan` requires `confirm === true`, and the UI exposes the same state. Covered by `tests/webmcp.test.mjs`; no external action exists. |
-| The page has basic responsive and keyboard-accessible affordances. | Implementation claim, not conformance claim | Semantic labels, skip link, visible focus styles, live regions, reduced-motion handling, and responsive CSS are present. `npm run build` now fails if the semantic landmarks, focus/reduced-motion selectors, or 1080/800/480px breakpoint guards disappear; required multi-viewport browser screenshots were blocked by missing local browser binaries. |
+| The page has basic responsive and keyboard-accessible affordances. | Implementation claim, not conformance claim | Semantic labels, skip link, visible focus styles, live regions, reduced-motion handling, and responsive CSS are present. `npm run build` now fails if the semantic landmarks, focus/reduced-motion selectors, or 1080/800/480px breakpoint guards disappear; the required six-width Chrome matrix and a mobile keyboard-focus pass were captured and inspected. |
 
 ## Decision model
 
@@ -67,8 +71,8 @@ On the checked worktree, the following passed:
 
 ```text
 npm run check
-10 tests passed, 0 failed
-build check passed: 10 required files and 5 WebMCP tools
+13 tests passed, 0 failed
+build check passed: 13 required files, 5 WebMCP tools, and accessibility/security guards
 node --check src/logic.js
 ```
 
@@ -95,7 +99,7 @@ npm run dev
 
 Open `http://localhost:4173` in ChatGPT’s in-app browser, or in Chrome 149+ after enabling `chrome://flags/#enable-webmcp-testing`. Inspect the page in Chrome DevTools’ WebMCP panel. Verify the five tools, then exercise: inspect → search → draft → swap → save without confirmation → explicit confirmation → reset. Capture screenshots at widths 390, 768, 1366, 1440, 1920, and 2560 pixels and check that `document.documentElement.scrollWidth <= document.documentElement.clientWidth`.
 
-This worktree could not complete the full six-width matrix because the local Playwright browser cache and Chrome/Chromium executables were unavailable, and network installation was intentionally not used. A bounded in-app-browser attempt on 2026-08-27 did connect and load the live HTML shell with HTTP 200 and `readyState=complete`, but `#app` remained empty, the captured screenshot was blank, and native tool inspection returned `gpt-5.6-luna does not support command "webmcp_list_tools"`. A single controlled reload with a read-only DevTools cursor captured zero runtime exceptions, console events, network failures, or response events, so that blank state could not be localized to a reproducible page exception. The separate Chrome result and the resolved source causes are recorded below; in-app native WebMCP invocation is still not claimed.
+The local Playwright path could not run because its browser cache and Chrome/Chromium executables were unavailable, and network installation was intentionally not used. A separate controlled Chrome session completed the six-width matrix documented below. A bounded in-app-browser attempt on 2026-08-27 did connect and load the live HTML shell with HTTP 200 and `readyState=complete`, but `#app` remained empty, the captured screenshot was blank, and native tool inspection returned `gpt-5.6-luna does not support command "webmcp_list_tools"`. A single controlled reload with a read-only DevTools cursor captured zero runtime exceptions, console events, network failures, or response events, so that blank state could not be localized to a reproducible page exception. The separate Chrome result and the resolved source causes are recorded below; in-app native WebMCP invocation is still not claimed.
 As a separate non-browser compatibility check, the deployed alias returned HTTP 200 with expected content types for `index.html`, `src/main.js`, `src/styles.css`, `src/data.js`, `src/logic.js`, `src/store.js`, and `src/webmcp.js`; the CSP was present. This rules out a missing public module or stylesheet artifact in the checked deployment.
 
 A separate Chrome extension attempt on 2026-08-27 reached the stable URL and correct page title, but the pre-fix document was `readyState=complete` with `body.innerHTML.length=85`, `#app.innerHTML.length=0`, and no stylesheet entries; the screenshot was blank. Chrome exposed only `pageAssets` and `cdp` tab capabilities, with no native WebMCP discovery surface. A read-only CDP cursor returned zero buffered runtime exceptions, console events, network failures, or response events at inspection time. This was the initial browser symptom, not the final source state.
