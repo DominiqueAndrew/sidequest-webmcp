@@ -71,7 +71,7 @@ On the checked worktree, the following passed:
 
 ```text
 npm run check
-14 tests passed, 0 failed
+15 tests passed, 0 failed
 build check passed: 14 required files, 5 WebMCP tools, and accessibility/security guards
 node --check src/logic.js
 ```
@@ -125,7 +125,7 @@ At the required CSS viewport sizes, the post-fix Chrome session captured and vis
 
 At 390×844, seven Tab presses reached the skip link, four labeled selects, the step-free checkbox, and the build CTA; each reported a visible `3px solid` focus outline. The post-fix interaction emitted no new error-level logs; the Chrome session retained two historical pre-fix named-export errors from the earlier cached module URL, which are not evidence of the repaired load. Screenshots were inspected in-session rather than persisted as repository files; the numeric receipt and source/deployment revision are the reproducible record.
 
-The current production deployment `dpl_J97t9kEvf5ej7t8W2n1rPr15b3gY` was re-read in a fresh Chrome tab on 2026-08-27 with `?startup-fallback=2f136ca`: `readyState=complete`, `appShell=true`, `data-app-ready=true`, `startupVisible=false`, and `appLength=10,717`; the page served versioned assets `/src/main.js?v=startup-fallback-20260827` and `/src/styles.css?v=startup-fallback-20260827`, reported `WebMCP preview` and five tools live, displayed `Synthetic demo collection`, and had no horizontal overflow at 390×844, 768×1024, 1366×768, 1440×900, 1920×1080, or 2560×1440. The six-width DOM matrix was re-read on this deployment; every requested viewport matched its `innerWidth` and had `scrollWidth === clientWidth`, with the app shell present and the startup fallback hidden. A bounded fault-path check disabled JavaScript before loading the same deployment: `#app` remained empty as expected, while the sibling startup status stayed visible with its diagnostic text; after script execution was restored, the normal app recovered with `data-app-ready=true` and `appLength=10,717`. This is current visual and page-local state evidence, not native WebMCP discovery.
+The current production deployment `dpl_Esd6qdWihaM885vykSA3YbnrmGDk` was re-read in a fresh Chrome tab on 2026-08-27 with `?runtime-check=1f9caed-normal`: `readyState=complete`, `appShell=true`, `data-app-ready=true`, `startupVisible=false`, and `appLength=10,717`; the page served versioned assets `/src/main.js?v=startup-fallback-20260827` and `/src/styles.css?v=startup-fallback-20260827`, reported `WebMCP preview` and five tools live, displayed `Synthetic demo collection`, and had no horizontal overflow at 390×844, 768×1024, 1366×768, 1440×900, 1920×1080, or 2560×1440. The six-width DOM matrix was re-read on this deployment; every requested viewport matched its `innerWidth` and had `scrollWidth === clientWidth`, with the app shell present and the startup fallback hidden. The local contract suite now includes a native-registration rejection case, and it passed; the available browser wrapper could not inject a synthetic native rejection, so no live error-state claim is made. A bounded JavaScript-disabled fault-path check on the prior runtime deployment already established that the sibling startup status remains visible when hydration cannot run. This is current visual and page-local state evidence, not native WebMCP discovery.
 
 The zero-dependency runtime smoke harness in `scripts/smoke.mjs` exercises the real tool callbacks and prints a stable JSON receipt. It is the reproducible non-browser evidence boundary for the complete inspect → search → draft → inspect → swap → denied save → premature-save denial → human approval → confirmed save → reset workflow; it does not replace live browser validation.
 
@@ -180,9 +180,9 @@ Checked on 2026-08-27:
 - Public repository: [DominiqueAndrew/sidequest-webmcp](https://github.com/DominiqueAndrew/sidequest-webmcp), MIT license.
 - Evidence-packet checklist commit: `3902db79bcaab8bf08849ef4cd04509718a73721` (documentation-only human-gate checklist, including reproducible inputs and the corrected executable swap example; pushed to `main`).
 - Handoff reproducibility guard: `f5f56c7ab4a516331641aaca4c45fd2464f122fb` (`scripts/smoke.mjs` pins the documented default-ranked coffee swap; pushed to `main`).
-- Application/runtime revision: `2f136ca85cd1b8e75b5cfa0e85bb006d0c5ee4c3` (startup fallback outside the app mount, versioned assets, explicit synthetic-demo label, page-owned save approval, and WebMCP runtime remain intact).
-- Production deployment: `dpl_J97t9kEvf5ej7t8W2n1rPr15b3gY`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
-- Local evidence: `npm run check` = 14 passing tests plus the 14-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/premature-save-denial/human-approval/confirmed-save/reset receipt; `git diff --check` clean.
+- Application/runtime revision: `1f9caeda290c1dee738b35dd1e0df60516bf9397` (startup fallback outside the app mount, explicit WebMCP registration-failure state, versioned assets, synthetic-demo label, page-owned save approval, and WebMCP runtime remain intact).
+- Production deployment: `dpl_Esd6qdWihaM885vykSA3YbnrmGDk`, reported READY by Vercel; stable alias: [sidequest-webmcp.vercel.app](https://sidequest-webmcp.vercel.app).
+- Local evidence: `npm run check` = 15 passing tests plus the 14-file build gate; `npm run smoke` = complete inspect/search/draft/inspect/swap/denied-save/premature-save-denial/human-approval/confirmed-save/reset receipt; `git diff --check` clean.
 - Public compatibility evidence: the stable alias returned HTTP 200, the expected HTML/runtime markers, and the restrictive CSP. This is a static/deployment check, not live WebMCP browser acceptance.
 - Browser boundary: the in-app browser attempt remained blank with no captured runtime/network exception and unsupported native `webmcp_list_tools`; no browser success is claimed.
 

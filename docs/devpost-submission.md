@@ -26,7 +26,7 @@ Without structured tools, an agent would have to infer the meaning of a multi-fi
 
 ## Evidence snapshot
 
-The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → human_approve_save → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied both the initial and premature save attempts with zero saved plans, accepted the confirmed call only after page-owned approval, and reset to a blank state. `npm run check` passes 14 tests and the static build gate for 14 required files, five WebMCP tools, and accessibility/security guards.
+The zero-dependency `npm run smoke` receipt exercises `inspect_plan → search_stops → draft_plan → inspect_plan → swap_stop → save_plan(false) → human_approve_save → save_plan(true) → reset`. On the checked revision it returned two constrained coffee candidates, a three-stop route of 85 minutes and $8, preserved the two untouched stops during the swap, denied both the initial and premature save attempts with zero saved plans, accepted the confirmed call only after page-owned approval, and reset to a blank state. `npm run check` passes 15 tests and the static build gate for 14 required files, five WebMCP tools, and accessibility/security guards.
 
 These are deterministic local/runtime results, not a user study or live-agent browser benchmark. Native WebMCP acceptance and the public video remain explicit release gates; a cache-busted Chrome visual smoke confirms the deployed UI renders, the local handoff interaction updates state, and the six-width responsive matrix has been captured and inspected without horizontal overflow. The research and claim boundary are documented in [`SCIENCE_APPENDIX.md`](../SCIENCE_APPENDIX.md).
 
@@ -50,9 +50,9 @@ Copy-ready form answers, rubric language, exact links, and the remaining human-o
 - License: MIT
 - Evidence-packet checklist commit: `3902db79bcaab8bf08849ef4cd04509718a73721` (documentation-only human-gate checklist, including reproducible inputs and the corrected executable swap example; pushed to `main`).
 - Handoff reproducibility guard: `f5f56c7ab4a516331641aaca4c45fd2464f122fb` (`scripts/smoke.mjs` pins the documented default-ranked coffee swap; pushed to `main`).
-- Application/runtime revision: `2f136ca85cd1b8e75b5cfa0e85bb006d0c5ee4c3` (startup fallback outside the app mount, versioned assets, explicit synthetic-demo label, page-owned save approval, and WebMCP runtime remain intact).
+- Application/runtime revision: `1f9caeda290c1dee738b35dd1e0df60516bf9397` (startup fallback outside the app mount, explicit WebMCP registration-failure state, versioned assets, synthetic-demo label, page-owned save approval, and WebMCP runtime remain intact).
 - Smoke harness introduced in: `452c2c178b0d9cc3d75a9c5536c0f3b2178e5ccd` (covered by the application revision above)
-- Last verified production deployment: `dpl_J97t9kEvf5ej7t8W2n1rPr15b3gY` (READY)
+- Last verified production deployment: `dpl_Esd6qdWihaM885vykSA3YbnrmGDk` (READY)
 - Stable deployment alias: https://sidequest-webmcp.vercel.app
 
 ## Demo video

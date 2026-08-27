@@ -11,7 +11,7 @@ Use one of these supported paths:
 
 Open the live URL: <https://sidequest-webmcp.vercel.app>
 
-Verified baseline before the native-browser check: runtime revision `2f136ca85cd1b8e75b5cfa0e85bb006d0c5ee4c3`, production deployment `dpl_J97t9kEvf5ej7t8W2n1rPr15b3gY` (READY). The deployment uses versioned `/src/main.js?v=startup-fallback-20260827` and `/src/styles.css?v=startup-fallback-20260827` assets.
+Verified baseline before the native-browser check: runtime revision `1f9caeda290c1dee738b35dd1e0df60516bf9397`, production deployment `dpl_Esd6qdWihaM885vykSA3YbnrmGDk` (READY). The deployment uses versioned `/src/main.js?v=startup-fallback-20260827` and `/src/styles.css?v=startup-fallback-20260827` assets.
 
 Expected page evidence:
 
