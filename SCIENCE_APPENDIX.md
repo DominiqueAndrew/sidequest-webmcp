@@ -108,6 +108,19 @@ The demo has no accounts, secrets, payments, location tracking, booking, externa
 
 These controls reduce obvious attack and surprise surfaces but are not a security certification. In particular, the WebMCP draft is experimental, the UI has not received an assistive-technology audit, and no adversarial tool-description or indirect-injection evaluation has been run.
 
+### Focused boundary review
+
+This is a source review of the static application, not a penetration test. The realistic attacker is an agent or caller supplying malformed tool arguments; they do not gain server, account, filesystem, or third-party API privileges because none are exposed by this demo. The relevant scenarios and controls are:
+
+| Scenario (hypothesis, not a confirmed finding) | Invariant and possible impact | Effective control and evidence | Residual uncertainty |
+| --- | --- | --- | --- |
+| A caller sends oversized strings or non-finite/out-of-range numbers to search, draft, swap, or save. | Tool execution remains bounded and cannot alter the curated collection or create an unbounded response. | JSON Schema bounds in `src/webmcp.js:61-70`, `91-100`, `115-121`, and `151-157`; runtime normalization in `src/webmcp.js:16-38`, `74-82`, `103-108`, `124-130`, and `159-166`; malformed-input regression coverage in `tests/webmcp.test.mjs:58-80`. | No load or concurrency benchmark was run; this is a small in-memory collection. |
+| A caller tries to make a state-changing save look read-only or bypass consent with a truthy string. | Only an explicit human-confirmed mutation may add a saved plan. | Read-only annotations are limited to search/inspect in `src/webmcp.js:72` and `140`; save requires `values.confirm !== true` to reject in `src/webmcp.js:159-166`; the test asserts both annotation scope and rejection of `confirm: 'true'` in `tests/webmcp.test.mjs:18-24` and `33-43`. | The browser host's own confirmation UX was not available in this worktree; native live invocation remains open. |
+| A caller-controlled name, activity detail, or curated text reaches the HTML shell and becomes markup. | Text remains text; the agent cannot inject script or event attributes into the visible UI. | Dynamic text is escaped by `escapeHtml` in `src/main.js:12` and applied to plan, stop, activity, and error text in `src/main.js:19-25`; CSP in `vercel.json:5-13` disallows inline script and cross-origin connections. | No browser-level CSP report or adversarial DOM execution test was run; the UI source is statically inspected and the deployment headers were checked. |
+| A tool description or future external listing contains indirect instructions. | Demo content must not acquire authority to invoke unrelated actions or bypass product constraints. | The app has no external listing fetch, account, booking, payment, or arbitrary tool execution; tool callbacks route through the curated store/logic boundary in `src/webmcp.js:55-169`. Future external content must be bounded and treated as untrusted. | No adversarial prompt-injection corpus or live-agent reliability sample has been run. |
+
+No scenario above is reported as a confirmed vulnerability. The review was not independent, did not execute a full scanner, and did not test browser-host isolation, account/tenant boundaries, production persistence, or external integrations because those surfaces do not exist in this prototype.
+
 ## Official rubric and submission annex
 
 The official rules describe four equally weighted Stage Two criteria:

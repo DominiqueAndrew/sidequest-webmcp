@@ -16,6 +16,11 @@ test('exposes the complete stateful WebMCP tool surface', async () => {
   assert.ok(tools.every((tool) => tool.description && tool.inputSchema.type === 'object' && typeof tool.execute === 'function'));
 
   const search = tools.find((tool) => tool.name === 'sidequest.search_stops');
+  const inspect = tools.find((tool) => tool.name === 'sidequest.inspect_plan');
+  const save = tools.find((tool) => tool.name === 'sidequest.save_plan');
+  assert.equal(search.annotations.readOnlyHint, true);
+  assert.equal(inspect.annotations.readOnlyHint, true);
+  assert.equal(save.annotations?.readOnlyHint, undefined);
   const searchResult = JSON.parse(await search.execute({ energy: 'gentle', budget: 0, stepFree: true }));
   assert.deepEqual(searchResult.results.map((stop) => stop.id), ['canal-light-loop', 'maple-reading-room']);
   assert.equal(store.getState().activities[0].label, 'Searched the collection');
@@ -32,6 +37,9 @@ test('agent drafting mutates the shared page state and saving is consent-gated',
 
   const denied = JSON.parse(await save.execute({ name: 'A good little Saturday', confirm: false }));
   assert.equal(denied.requiresConfirmation, true);
+  assert.equal(store.getState().savedPlans.length, 0);
+  const nonBoolean = JSON.parse(await save.execute({ name: 'A good little Saturday', confirm: 'true' }));
+  assert.equal(nonBoolean.requiresConfirmation, true);
   assert.equal(store.getState().savedPlans.length, 0);
   const saved = JSON.parse(await save.execute({ name: 'A good little Saturday', confirm: true }));
   assert.equal(saved.ok, true);
