@@ -38,6 +38,22 @@ test('agent drafting mutates the shared page state and saving is consent-gated',
   assert.equal(store.getState().savedPlans.length, 1);
 });
 
+test('agent inspection and tuning operate on the same live route', async () => {
+  const store = createStore();
+  const tools = buildTools(store);
+  const draft = tools.find((tool) => tool.name === 'sidequest.draft_plan');
+  const inspect = tools.find((tool) => tool.name === 'sidequest.inspect_plan');
+  const swap = tools.find((tool) => tool.name === 'sidequest.swap_stop');
+  await draft.execute({ durationMinutes: 90, energy: 'gentle', budget: 18, stepFree: true });
+  const before = store.getState().plan.stops.map(({ stopId }) => stopId);
+  const inspected = JSON.parse(await inspect.execute({}));
+  assert.deepEqual(inspected.plan.stops.map(({ stopId }) => stopId), before);
+  const result = JSON.parse(await swap.execute({ stopId: before[0], replacementId: 'juniper-coffee' }));
+  assert.equal(result.ok, true);
+  assert.deepEqual(store.getState().plan.stops.slice(1).map(({ stopId }) => stopId), before.slice(1));
+  assert.equal(store.getState().activities[0].label, 'One stop tuned');
+});
+
 test('reset exposes a real blank state for the human workflow', () => {
   const store = createStore();
   assert.ok(store.getState().plan);
