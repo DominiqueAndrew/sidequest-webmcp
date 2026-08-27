@@ -1,5 +1,5 @@
-import { ENERGY_LABELS, searchStops, getStop } from './data.js';
-import { createPlan, formatMinutes, formatTimeOffset } from './logic.js';
+import { ENERGY_LABELS, getStop } from './data.js';
+import { createPlan, formatMinutes, formatTimeOffset, searchStops } from './logic.js';
 import { createStore } from './store.js';
 import { buildTools, registerWebMcp } from './webmcp.js';
 
