@@ -33,11 +33,11 @@ To inspect tools locally, use Chrome 149+ with `chrome://flags/#enable-webmcp-te
 
 ## Project shape
 
-- `src/data.ts` — synthetic curated stop collection.
-- `src/logic.ts` — pure search, route selection, and swap logic.
-- `src/store.ts` — small in-memory state store shared by UI and tools.
-- `src/webmcp.ts` — current WebMCP registration and tool schemas.
-- `src/main.ts` and `src/styles.css` — human-first UI and responsive states.
+- `src/data.js` — synthetic curated stop collection.
+- `src/logic.js` — pure search, route selection, and swap logic.
+- `src/store.js` — small in-memory state store shared by UI and tools.
+- `src/webmcp.js` — current WebMCP registration and tool schemas.
+- `src/main.js` and `src/styles.css` — human-first UI and responsive states.
 - `docs/spec.md` — product acceptance criteria and validation plan.
 
 ## License
